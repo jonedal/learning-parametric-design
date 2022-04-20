@@ -1,6 +1,6 @@
 const sketchWidth = 400;
 const sketchHeight = 400;
-const size = 50;
+const size = 100;
 
 function setup() {
   createCanvas(sketchWidth, sketchHeight);
@@ -19,7 +19,7 @@ function draw(){
 
   for (let x = 0; x < columns; x += 1) {
     for (let y = 0; y < rows; y += 1) {
-      fill(random(10, 175), random(10,205), random(0,200));
+      fill(random(10, 200), random(10,205), random(0,200));
       rect(x * size, y * size, size, size);
     }
   }

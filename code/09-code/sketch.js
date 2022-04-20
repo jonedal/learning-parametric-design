@@ -10,7 +10,7 @@ let corner = 15
 
 function draw(){
   background(210);
-  fill(100)
+  fill('green')
   noStroke()
 
 
