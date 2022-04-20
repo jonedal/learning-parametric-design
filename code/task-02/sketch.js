@@ -11,6 +11,9 @@ function draw(){
   background(255);
   noStroke();
   
+  //const columns = sketchWidth / size;
+  //const rows = sketchHeight / size;
+
   const columns = sketchWidth / size;
   const rows = sketchHeight / size;
 
