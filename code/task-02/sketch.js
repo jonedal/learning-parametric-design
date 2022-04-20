@@ -16,7 +16,7 @@ function draw(){
 
   for (let x = 0; x < columns; x += 1) {
     for (let y = 0; y < rows; y += 1) {
-      fill(random(125, 175), random(0,255), random(0,255));
+      fill(random(10, 175), random(10,205), random(0,200));
       rect(x * size, y * size, size, size);
     }
   }
