@@ -36,7 +36,7 @@ function draw() {
   offset += 0.003;
 
 
-   //schein
+   //schein 1
    noStroke()
    fill('#1B1A38')
    circle(random(198,202),random(198,202),random(130,140))
@@ -46,7 +46,27 @@ function draw() {
    fill('#232338')
    circle(random(198,202),random(198,202),random(100,110))
 
+   //strahlen
+   stroke(random(230,250),random(180,200),random(30,40));
+   strokeWeight(random(2,4));
+   fill(random(250,280),random(220,240),random(50,60));
 
+   beginShape();
+   for(let angle = 0; angle < 360; angle += 15) {
+     const radius = random(120, 150);
+     const iradius = random(75,80);
+     const x = radius * cos(Math.PI / 180 * angle);
+     const y = radius * sin(Math.PI / 180 * angle);
+
+     const ix = iradius * cos(Math.PI / 180 * angle);
+     const iy = iradius * sin(Math.PI / 180 * angle);
+
+     
+     line(x+sketchWidth/2,y+sketchHeight/2,
+     ix+sketchWidth/2,iy+sketchHeight/2);
+
+   }
+   endShape(CLOSE);
 
    //sterne
    noStroke()
@@ -56,7 +76,6 @@ function draw() {
     circle(random(10, 390), random(10, 390), circleDiameter);
     
    }
-
 
    //aussen
       stroke(random(230,250),random(180,200),random(30,40));
