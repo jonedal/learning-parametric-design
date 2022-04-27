@@ -4,7 +4,7 @@ let angleOffset = 0
 
 function setup() {
   createCanvas(sketchWidth, sketchHeight);
-  //frameRate(30)
+  frameRate(50)
 }
   
 function draw() {
