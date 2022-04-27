@@ -2,11 +2,11 @@ const sketchWidth = 400;
 const sketchHeight = 400;
 
 
-
-
 function setup() {
   createCanvas(sketchWidth, sketchHeight);
   frameRate(30)
+
+  //frameRate(2)
 }
   
 function draw() {
@@ -37,7 +37,6 @@ function draw() {
     offset += 0.003;
 
 
-
    //schein 1
    noStroke()
    fill('#1B1A38')
@@ -51,7 +50,6 @@ function draw() {
     circle(random(198,202),random(198,202),random(100,110))
 
 
-
    //strahlen
    stroke(random(240,250),random(230,240),random(120,140));
    strokeWeight(random(2,3));
@@ -59,7 +57,7 @@ function draw() {
     beginShape();
     for(let angle = 0; angle < 360; angle += 15) {
      
-     //Strahlenlaenge 
+     //strahlenlaenge 
      const radius = random(135, 160);
      const iradius = random(75,80);
      
@@ -76,7 +74,6 @@ function draw() {
    }
    endShape(CLOSE);
 
-   
    
    //sterne
    noStroke()
