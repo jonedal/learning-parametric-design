@@ -4,13 +4,14 @@ let angleOffset = 0
 
 function setup() {
   createCanvas(sketchWidth, sketchHeight);
-
+  //frameRate(30)
 }
   
 function draw() {
-  background(210);
-  noFill();
-  stroke(0)
+  background('lightBlue');
+  //noFill();
+
+  stroke('blue')
   strokeWeight(3);
   
   let radius = -2
