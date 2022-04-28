@@ -11,6 +11,11 @@ function draw() {
   background('lightBlue');
   //noFill();
 
+  
+  
+  //let rcolor = random(0,255)
+  //let gcolor = random(0,255)
+  //let bcolor = random(0,255)
   stroke('blue')
   strokeWeight(3);
   
