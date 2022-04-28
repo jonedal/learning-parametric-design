@@ -68,8 +68,8 @@ function draw() {
     
     //laenge
     const radius = spectrum[Math.round(angle/360*140)];
-    //const iradius = random(220,220);
-    const iradius = spectrum[Math.round(angle/360*140+1)]
+    const iradius = random(sketchWidth/2-45,sketchHeight/2-50);
+    //const iradius = spectrum[Math.round(angle/360*140+1)]
 
        const x = radius * cos(Math.PI / 180 * angle);
        const y = radius * sin(Math.PI / 180 * angle);
