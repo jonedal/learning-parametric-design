@@ -1,15 +1,26 @@
 const sketchWidth = 600;
 const sketchHeight = 600;
+let audio;
 
+//settings
+
+//beams
+let thickness = 1.5
+let density = 0.9
+let detail = 140
+let rimSize = 90
+let rimFlutter = 4
+
+//stars
 const sterne = [];
-
 const maxSize = 4;
 const growValue = 0.07;
-
 let offsetX = 0;
 
+//background
+let noiseSpeed = 0.015
 
-let audio;
+
 
 function setup() {
   createCanvas(sketchWidth, sketchHeight);
@@ -54,21 +65,20 @@ function draw() {
         rect(nx, ny, size);
       }
     }
-    offset += 0.015;
+    offset += noiseSpeed;
           
   
-    //strahlen
+    //beams
   stroke('#6257AD')
-  strokeWeight(1.5)
+  strokeWeight(thickness)
 
   let spectrum = fft.analyze();
 
    beginShape();
-   for(let angle = 0; angle < 360; angle += 0.9) {
+   for(let angle = 0; angle < 360; angle += density) {
     
-    //laenge
-    const radius = spectrum[Math.round(angle/360*140)];
-    const iradius = random(sketchWidth/2-45,sketchHeight/2-50);
+    const radius = spectrum[Math.round(angle / 360 * detail)];
+    const iradius = random(sketchWidth / 2 - (rimSize-rimFlutter),sketchHeight / 2 - rimSize);
     //const iradius = spectrum[Math.round(angle/360*140+1)]
 
        const x = radius * cos(Math.PI / 180 * angle);
@@ -113,7 +123,7 @@ function draw() {
 
   
   /*
-   //mittelpunkt
+   //focalpoint
    //const pointCount = random(10,20);
    
    /*noFill()
