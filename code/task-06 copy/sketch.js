@@ -5,11 +5,12 @@ let audio;
 //settings
 
 //beams
-let thickness = 1.5
-let density = 0.9
-let detail = 140
-let rimSize = 90
-let rimFlutter = 4
+let thickness = 2.5
+let density = 2
+let detail = 200
+let rimSize = 140
+let rimFlutter = 3
+let ribbon = 1
 
 //stars
 const sterne = [];
@@ -34,6 +35,22 @@ function setup() {
 
   fft = new p5.FFT();
   fft.setInput(audio);
+
+
+/*
+let slider;
+  
+  slider = createSlider(-200, 295, 200, 1);
+  slider.position(sketchWidth / 2 - 100, sketchHeight + 30);
+  slider.style('width', '200px');
+
+  let rimSize = slider.value();
+  //let sliderVal = slider.value();
+*/ 
+
+
+
+  
 
   for (let sternCount = 0; sternCount < 100; sternCount += 1) {
     sterne.push({
@@ -67,8 +84,33 @@ function draw() {
     }
     offset += noiseSpeed;
           
+
+  //sterne
+  noStroke()
+  //fill('grey')
+  for (let s = 0; s < sterne.length; s += 1) {
+    fill(255, 255, 255, sterne[s].radius / 0.5 * 15);
+    circle(sterne[s].x + offsetX, sterne[s].y, sterne[s].radius);
+
+    if (sterne[s].grow) {
+      sterne[s].radius += growValue;
+      if (sterne[s].radius > maxSize) {
+        sterne[s].grow = false;
+      }
+    } else {
+      sterne[s].radius -= growValue;
+      if (sterne[s].radius < 0) {
+        sterne[s].x = random(0, sketchWidth);
+        sterne[s].y = random(0, sketchHeight);
+        sterne[s].grow = true;
+      }
+    }
+
+    sterne[s].x += random(-0.1, 0.1);
+    sterne[s].y += random(-0.1, 0.1);
+  }
   
-    //beams
+  //beams
   stroke('#6257AD')
   strokeWeight(thickness)
 
@@ -77,9 +119,9 @@ function draw() {
    beginShape();
    for(let angle = 0; angle < 360; angle += density) {
     
-    const radius = spectrum[Math.round(angle / 360 * detail)];
+    const radius = spectrum[Math.round(angle / 500 * detail)];
     const iradius = random(sketchWidth / 2 - (rimSize-rimFlutter),sketchHeight / 2 - rimSize);
-    //const iradius = spectrum[Math.round(angle/360*140+1)]
+    //const iradius = spectrum[Math.round(angle/360*detail+ribbon)]
 
        const x = radius * cos(Math.PI / 180 * angle);
        const y = radius * sin(Math.PI / 180 * angle);
@@ -93,33 +135,6 @@ function draw() {
 
   }
   endShape(CLOSE);
-
-  
-  
-  //sterne
-  noStroke()
-  //fill('grey')
- for (let s = 0; s < sterne.length; s += 1) {
-   fill(255, 255, 255, sterne[s].radius / 0.5 * 15);
-   circle(sterne[s].x + offsetX, sterne[s].y, sterne[s].radius);
-
-   if (sterne[s].grow) {
-     sterne[s].radius += growValue;
-     if (sterne[s].radius > maxSize) {
-       sterne[s].grow = false;
-     }
-   } else {
-     sterne[s].radius -= growValue;
-     if (sterne[s].radius < 0) {
-       sterne[s].x = random(0, sketchWidth);
-       sterne[s].y = random(0, sketchHeight);
-       sterne[s].grow = true;
-     }
-   }
-
-   sterne[s].x += random(-0.1, 0.1);
-   sterne[s].y += random(-0.1, 0.1);
- }
 
   
   /*
