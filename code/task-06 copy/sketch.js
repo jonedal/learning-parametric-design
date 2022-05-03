@@ -5,11 +5,11 @@ let audio;
 //settings
 
 //beams
-let thickness = 2.5
-let density = 2
+let thickness = 1.8
+let density = 1
 let detail = 200
-let rimSize = 140
-let rimFlutter = 3
+let rimSize = 150
+let rimFlutter = 5
 let ribbon = 1
 
 //stars
@@ -46,7 +46,7 @@ let slider;
 
   let rimSize = slider.value();
   //let sliderVal = slider.value();
-*/ 
+*/
 
 
 
@@ -111,10 +111,12 @@ function draw() {
   }
   
   //beams
+  let spectrum = fft.analyze();
   stroke('#6257AD')
+  //colorMode(HSB, 120)
+  //stroke(spectrum, 70, 90)
   strokeWeight(thickness)
 
-  let spectrum = fft.analyze();
 
    beginShape();
    for(let angle = 0; angle < 360; angle += density) {
@@ -137,7 +139,7 @@ function draw() {
   endShape(CLOSE);
 
   
-  /*
+  
    //focalpoint
    //const pointCount = random(10,20);
    

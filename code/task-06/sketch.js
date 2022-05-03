@@ -3,10 +3,20 @@ const sketchWidth = 400
 let count = 100;
 let speed = 1;
 const particles = [];
+let audio;
 
 
 function setup() {
   createCanvas(sketchWidth, sketchHeight);
+  getAudioContext().suspend();
+  userStartAudio();
+
+  audio = new p5.AudioIn();
+  audio.start();
+
+  fft = new p5.FFT();
+  fft.setInput(audio);
+  
 }
 
 function draw() {
@@ -37,6 +47,8 @@ function draw() {
     circle(particles[i].x, particles[i].y, particles[i].radius);
 
    //richtungswechsel
+    let snap = fft.analyze();
+
     if (particles[i].x + particles[i].radius / 2 > sketchWidth) 
     {particles[i].vx *= -1;}
     else if (particles[i].x - particles[i].radius / 2 < 0) 
@@ -46,11 +58,14 @@ function draw() {
     {particles[i].vy *= -1;}
     else if (particles[i].y - particles[i].radius / 2 < 0) 
     {particles[i].vy *= -1;}
+
+    //if (snap > 100) {particles[i].vy *= -1;}
+    
+  
     
 
 
     
-    //particles[random(0,particles.length)]
-    //fill('orange')
+  
   }
 }
