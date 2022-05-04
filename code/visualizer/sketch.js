@@ -112,6 +112,7 @@ function draw() {
   
   //beams
   let spectrum = fft.analyze();
+  console.log(spectrum);
   stroke('#6257AD')
   //colorMode(HSB, 120)
   //stroke(spectrum, 70, 90)
