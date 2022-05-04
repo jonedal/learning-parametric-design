@@ -8,6 +8,7 @@ let audio;
 
 function setup() {
   createCanvas(sketchWidth, sketchHeight);
+  /*
   getAudioContext().suspend();
   userStartAudio();
 
@@ -16,7 +17,7 @@ function setup() {
 
   fft = new p5.FFT();
   fft.setInput(audio);
-  
+  */
 }
 
 function draw() {
@@ -47,7 +48,7 @@ function draw() {
     circle(particles[i].x, particles[i].y, particles[i].radius);
 
    //richtungswechsel
-    let snap = fft.analyze();
+    //let snap = fft.analyze();
 
     if (particles[i].x + particles[i].radius / 2 > sketchWidth) 
     {particles[i].vx *= -1;}
