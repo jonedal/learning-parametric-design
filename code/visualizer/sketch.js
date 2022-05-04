@@ -160,8 +160,3 @@ function draw() {
    //noLoop()
 
    }
-        
-
-
-
-   
