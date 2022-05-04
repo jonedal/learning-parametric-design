@@ -1,13 +1,19 @@
 const sketchHeight = 400
 const sketchWidth = 400
 let count = 100;
-let speed = 1;
+
 const particles = [];
 let audio;
+let slider;
 
 
 function setup() {
   createCanvas(sketchWidth, sketchHeight);
+  slider = createSlider(0,10,1,1);
+  slider.position(sketchWidth / 2 - 100, sketchHeight + 20)
+  slider.style('width', '200px')
+  
+
   /*
   getAudioContext().suspend();
   userStartAudio();
@@ -20,15 +26,17 @@ function setup() {
   */
 }
 
+
 function draw() {
   background('#27273B');
   fill(random(155,175),random(145,170),random(240,250));
+  let speed = slider.value();
 
 
    //start
    for (let i = 0; i < count; i += 1) {
     particles.push({
-      radius: random(4, 9),
+      radius: random(6, 13),
       
       x: random(0,sketchWidth),
       y: random(0,sketchHeight),
