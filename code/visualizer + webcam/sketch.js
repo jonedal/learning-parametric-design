@@ -5,6 +5,7 @@ let audio;
 //const weight = "Ñ@#W$9876543210?!abc;:+=-,._                    ";
 const weight = '       .:-i|=+%O#@'
 //const weight = '        .:░▒▓█';
+//const weight = '█▓▒░:.        ';
 
 let video;
 let asciiDiv;
@@ -15,7 +16,7 @@ let asciiDiv;
 let thickness = 1.8
 let density = 1
 let detail = 200
-let rimSize = 150
+let rimSize = 200
 let rimFlutter = 5
 let ribbon = 1
 
@@ -43,7 +44,7 @@ function setup() {
   fft.setInput(audio);
 
   video = createCapture(VIDEO);
-  video.size(110, 42);
+  video.size(105, 42);
   video.position(sketchWidth/sketchWidth - 10, sketchHeight + 20);
   asciiDiv = createDiv();
 
@@ -56,7 +57,7 @@ let slider;
 
   let rimSize = slider.value();
   //let sliderVal = slider.value();
-*/
+
 
   for (let sternCount = 0; sternCount < 100; sternCount += 1) {
     sterne.push({
@@ -67,15 +68,17 @@ let slider;
       grow: Math.round(random(0,1))
     });
   }
+  */
 }
 
 let offset = 0;
 
 function draw() {
   //background('#040638');
+  background(31, 26, 42);
 
   noStroke(); 
-
+/*
   //kosmos
     const size = 10;
 
@@ -115,7 +118,7 @@ function draw() {
     sterne[s].x += random(-0.1, 0.1);
     sterne[s].y += random(-0.1, 0.1);
   }
-  
+  */
   //webcam
   video.loadPixels();
   let asciiImage = "";
@@ -143,12 +146,13 @@ function draw() {
   //beams
   let spectrum = fft.analyze();
   //console.log(spectrum);
-  stroke('#6257AD')
+  //stroke('#6257AD')
+  stroke('rgba(160, 149, 230, 0.5)');
   strokeWeight(thickness)
 
-  //top half
+  //80 percent
    beginShape();
-   for(let angle = 0; angle < 180; angle += density) {
+   for(let angle = 10; angle < 350; angle += density) {
     
     const radius = spectrum[Math.round(angle / 500 * detail)];
     const iradius = random(sketchWidth / 2 - (rimSize-rimFlutter),sketchHeight / 2 - rimSize);
@@ -167,9 +171,9 @@ function draw() {
    }
    endShape(CLOSE);
    
-   //bottom half
+   //0-10 percent
    beginShape();
-   for(let angle = 180; angle < 360; angle += density) {
+   for(let angle = 0; angle < 10; angle += density) {
     
     const radius = spectrum[Math.round(angle / 500 * detail)];
     const iradius = random(sketchWidth / 2 - (rimSize-rimFlutter),sketchHeight / 2 - rimSize);
@@ -187,5 +191,39 @@ function draw() {
 
    }
    endShape(CLOSE);
+   
+   //80-100 percent
+   
+    //  let avgs = logAverages(octaveBands);
+    //  console.log(avgs);
+   
+   beginShape();
+   for(let angle = 350; angle < 360; angle += density) {
+    
+    const radius = spectrum[Math.round(angle / 500 * detail)];
+    const iradius = random(sketchWidth / 2 - (rimSize-rimFlutter),sketchHeight / 2 - rimSize);
+    //const iradius = spectrum[Math.round(angle/360*detail+ribbon)]
+
+       const x = radius * cos(Math.PI / 180 * angle);
+       const y = radius * sin(Math.PI / 180 * angle);
+
+       const ix = iradius * cos(Math.PI / 180 * angle);
+       const iy = iradius * sin(Math.PI / 180 * angle);
+
+    
+    line(x+sketchWidth/2,y+sketchHeight/2,
+    ix+sketchWidth/2,iy+sketchHeight/2);
+
+   }
+   endShape(CLOSE);
+
+  //  let log = spectrum;
+  //  fill()
+  //  textSize(10);
+  //  text(log, sketchWidth/sketchWidth, sketchHeight-(sketchHeight-10))
+   
+  let p = createP('j j u n g _ v i s u a l i z e r _ 1 . 0');
+    p.style('font-size', '10px');
+    p.position(sketchWidth - 157, sketchHeight + 10);
 
    }

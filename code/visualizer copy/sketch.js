@@ -123,8 +123,8 @@ function draw() {
    for(let angle = 0; angle < 180; angle += density) {
     
     const radius = spectrum[Math.round(angle / 500 * detail)];
-    const iradius = random(sketchWidth / 2 - (rimSize-rimFlutter),sketchHeight / 2 - rimSize);
-    //const iradius = spectrum[Math.round(angle/360*detail+ribbon)]
+    //const iradius = random(sketchWidth / 2 - (rimSize-rimFlutter),sketchHeight / 2 - rimSize);
+    const iradius = spectrum[Math.round(angle/360*detail+ribbon)]
 
        const x = radius * cos(Math.PI / 180 * angle);
        const y = radius * sin(Math.PI / 180 * angle);
@@ -144,8 +144,8 @@ function draw() {
    for(let angle = 180; angle < 360; angle += density) {
     
     const radius = spectrum[Math.round(angle / 500 * detail)];
-    const iradius = random(sketchWidth / 2 - (rimSize-rimFlutter),sketchHeight / 2 - rimSize);
-    //const iradius = spectrum[Math.round(angle/360*detail+ribbon)]
+    //const iradius = random(sketchWidth / 2 - (rimSize-rimFlutter),sketchHeight / 2 - rimSize);
+    const iradius = spectrum[Math.round(angle/360*detail+ribbon)]
 
        const x = radius * cos(Math.PI / 180 * angle);
        const y = radius * sin(Math.PI / 180 * angle);
