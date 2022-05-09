@@ -222,7 +222,7 @@ function draw() {
   //  textSize(10);
   //  text(log, sketchWidth/sketchWidth, sketchHeight-(sketchHeight-10))
    
-  let p = createP('j j u n g _ v i s u a l i z e r _ 1 . 0');
+  let p = createP('j j u n g _ v i s i o n _ 1 . 0');
     p.style('font-size', '10px');
     p.position(sketchWidth - 157, sketchHeight + 10);
 
