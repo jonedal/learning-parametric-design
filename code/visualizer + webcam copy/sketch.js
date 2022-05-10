@@ -1,5 +1,5 @@
-const sketchWidth = 820;
-const sketchHeight = 780;
+const sketchWidth = 750;
+const sketchHeight = 650;
 let audio;
 
 //const weight = "Ñ@#W$9876543210?!abc;:+=-,._                    ";
@@ -13,18 +13,18 @@ let asciiDiv;
 //settings
 
 //beams
-let thickness = 1.6; // >> slider?
-let density = 0.4; //0.3, 2 >> slider?
-let detail = 900; //200, 800, 1500 >> slider
+//let thickness = 1.5; // >> slider?
+//let density = 0.4; //0.3, 2 >> slider?
+//let detail = 900; //200, 800, 1500 >> slider
 let rimSize;
 let rimFlutter = 5;
 let ribbon = 1;
-let mult = 480; //500: ribbon = 1 >> slider
+//let mult = 480; //500: ribbon = 1 >> slider
 
 let effect = 90; //180, 90, 45, 360 >> buttons?
 let flip = 270; //90, 270 >> selector
 
-let outerRim = 160;
+let outerRim = 120;
 let outerEffect = 360;
 
 //stars
@@ -35,6 +35,9 @@ let offsetX = 0;
 
 //background
 //let noiseSpeed = 0.015;
+
+let multSlider;
+let detailSlider;
 
 
 function setup() {
@@ -53,20 +56,35 @@ function setup() {
   fft.setInput(audio);
 
 
+  multSlider = createSlider(400, 500, 470, 10);
+  multSlider.position(sketchWidth / 2 - 100, sketchHeight + 13);
+  multSlider.style('width', '200px');
+  multSlider.style('height', '5px');
+  multSlider.style('outline', 'transparent');
+
+  detailSlider = createSlider(100, 1500, 900, 50);
+  detailSlider.position(sketchWidth / 2 - 100, sketchHeight + 53);
+  detailSlider.style('width', '200px');
+  detailSlider.style('height', '5px');
+
+  densitySlider = createSlider(0.3, 5, 0.4, 0.1);
+  densitySlider.position(sketchWidth / 2 - 100, sketchHeight + 93);
+  densitySlider.style('width', '200px');
+  densitySlider.style('height', '5px');
+
+  thickSlider = createSlider(0.5, 5, 1.5, 0.5);
+  thickSlider.position(sketchWidth / 2 - 100, sketchHeight + 133);
+  thickSlider.style('width', '200px');
+  thickSlider.style('height', '5px');
+
+
   // video = createCapture(VIDEO);
   // video.size(105, 42);
   // video.position(sketchWidth/sketchWidth - 10, sketchHeight + 20);
   // asciiDiv = createDiv();
 
-  // //size slider
-  // let slider;
-  
-  // slider = createSlider(-200, 295, 160, 1);
-  // slider.position(sketchWidth / 2 - 100, sketchHeight - 50);
-  // slider.style('width', '200px');
 
-  // rimSize = slider.value();
-  // //let sliderVal = slider.value();
+
 
 
   for (let sternCount = 0; sternCount < 100; sternCount += 1) {
@@ -79,19 +97,37 @@ function setup() {
     });
   }
    
-  let p = createP('j j u n g _ v i s i o n _ 1 . 1');
+  let p = createP('j j u n g _ v i s i o n _ 1 . 2');
     p.style('font-size', '10px');
-    p.position(sketchWidth - 157, sketchHeight + 10);
-}
+    p.position(sketchWidth - 157, sketchHeight - 1);
+
+  let pMult = createP('ribbon');
+    pMult.style('font-size', '10px');
+    pMult.position(sketchWidth / 2 - 175, sketchHeight);  
+  
+  let pDetail = createP('detail');
+    pDetail.style('font-size', '10px');
+    pDetail.position(sketchWidth / 2 - 175, sketchHeight + 40);  
+
+  let pDensity = createP('density');
+    pDensity.style('font-size', '10px');
+    pDensity.position(sketchWidth / 2 - 175, sketchHeight + 80);  
+
+  let pThick = createP('thickness');
+    pThick.style('font-size', '10px');
+    pThick.position(sketchWidth / 2 - 175, sketchHeight + 120);  
+  }
 
 let offset = 0;
+
+
 
 function draw() {
   //background('#040638');
   background(31, 26, 42);
 
   noStroke(); 
-/*
+  /*
   //kosmos
     const size = 10;
 
@@ -154,6 +190,12 @@ function draw() {
   //   asciiImage += '<br/>';
   // }
   // asciiDiv.html(asciiImage);
+
+  let mult = multSlider.value();
+  let detail = detailSlider.value();
+  let density = densitySlider.value();
+  let thickness = thickSlider.value();
+
 
 
   //beams
@@ -252,7 +294,24 @@ function draw() {
     }
     endShape(CLOSE);
    
-    
+
+//  let pMultVal = createP(multSlider.value());
+//  pMultVal.style('font-size', '10px');
+//  pMultVal.position(sketchWidth / 2 + 150, sketchHeight);  
+
+//  let pDetailVal = createP(detailSlider.value());
+//  pDetailVal.style('font-size', '10px');
+//  pDetailVal.position(sketchWidth / 2 + 150, sketchHeight + 40);  
+
+//  let pDensityVal = createP(densitySlider.value());
+//  pDensityVal.style('font-size', '10px');
+//  pDensityVal.position(sketchWidth / 2 + 150, sketchHeight + 80);  
+
+//  let pThickVal = createP(thickSlider.value());
+//  pThickVal.style('font-size', '10px');
+//  pThickVal.position(sketchWidth / 2 + 150, sketchHeight + 120);  
+  
+}
 
   
   //  let log = spectrum;
@@ -262,4 +321,4 @@ function draw() {
    
   
 
-   }
+   
