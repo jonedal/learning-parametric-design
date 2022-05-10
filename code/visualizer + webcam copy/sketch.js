@@ -1,5 +1,5 @@
-const sketchWidth = 800;
-const sketchHeight = 800;
+const sketchWidth = 820;
+const sketchHeight = 780;
 let audio;
 
 //const weight = "Ñ@#W$9876543210?!abc;:+=-,._                    ";
@@ -13,18 +13,19 @@ let asciiDiv;
 //settings
 
 //beams
-let thickness = 1.6
-let density = 0.4 //0.3, 2
-let detail = 800 //200, 800, 1500
-let rimSize
-let rimFlutter = 5
-let ribbon = 1
+let thickness = 1.6; // >> slider?
+let density = 0.4; //0.3, 2 >> slider?
+let detail = 900; //200, 800, 1500 >> slider
+let rimSize;
+let rimFlutter = 5;
+let ribbon = 1;
+let mult = 480; //500: ribbon = 1 >> slider
 
-let effect = 90 //180, 90, 45, 360, ...
-let flip = 270 //90, 270
+let effect = 90; //180, 90, 45, 360 >> buttons?
+let flip = 270; //90, 270 >> selector
 
-let outerRim = 200
-let outerEffect = 360
+let outerRim = 160;
+let outerEffect = 360;
 
 //stars
 const sterne = [];
@@ -33,7 +34,7 @@ const growValue = 0.07;
 let offsetX = 0;
 
 //background
-let noiseSpeed = 0.015
+//let noiseSpeed = 0.015;
 
 
 function setup() {
@@ -52,10 +53,10 @@ function setup() {
   fft.setInput(audio);
 
 
-  video = createCapture(VIDEO);
-  video.size(105, 42);
-  video.position(sketchWidth/sketchWidth - 10, sketchHeight + 20);
-  asciiDiv = createDiv();
+  // video = createCapture(VIDEO);
+  // video.size(105, 42);
+  // video.position(sketchWidth/sketchWidth - 10, sketchHeight + 20);
+  // asciiDiv = createDiv();
 
   // //size slider
   // let slider;
@@ -78,7 +79,7 @@ function setup() {
     });
   }
    
-  let p = createP('j j u n g _ v i s i o n _ 1 . 0');
+  let p = createP('j j u n g _ v i s i o n _ 1 . 1');
     p.style('font-size', '10px');
     p.position(sketchWidth - 157, sketchHeight + 10);
 }
@@ -107,8 +108,8 @@ function draw() {
   */        
 
   //sterne
-  noStroke()
-  //fill('grey')
+  noStroke();
+  //fill('grey');
   for (let s = 0; s < sterne.length; s += 1) {
     fill(255, 255, 255, sterne[s].radius / 0.5 * 15);
     circle(sterne[s].x + offsetX, sterne[s].y, sterne[s].radius);
@@ -131,28 +132,28 @@ function draw() {
     sterne[s].y += random(-0.1, 0.1);
   }
   
-  //webcam
-  video.loadPixels();
-  let asciiImage = "";
-  for (let j = 0; j < video.height; j++) {
-    for (let i = 0; i < video.width; i++) {
+  // //webcam
+  // video.loadPixels();
+  // let asciiImage = "";
+  // for (let j = 0; j < video.height; j++) {
+  //   for (let i = 0; i < video.width; i++) {
       
-      const pixelIndex = (i + j * video.width) * 4;
-      const r = video.pixels[pixelIndex + 0];
-      const g = video.pixels[pixelIndex + 1];
-      const b = video.pixels[pixelIndex + 2];
+  //     const pixelIndex = (i + j * video.width) * 4;
+  //     const r = video.pixels[pixelIndex + 0];
+  //     const g = video.pixels[pixelIndex + 1];
+  //     const b = video.pixels[pixelIndex + 2];
       
-      const avg = (r + g + b) / 3;
-      const len = weight.length;
-      const charIndex = floor(map(avg, 0, 255, 0, len));
-      const c = weight.charAt(charIndex);
+  //     const avg = (r + g + b) / 3;
+  //     const len = weight.length;
+  //     const charIndex = floor(map(avg, 0, 255, 0, len));
+  //     const c = weight.charAt(charIndex);
       
-      if (c == " ") asciiImage += "&nbsp;";
-      else asciiImage += c;
-    }
-    asciiImage += '<br/>';
-  }
-  asciiDiv.html(asciiImage);
+  //     if (c == " ") asciiImage += "&nbsp;";
+  //     else asciiImage += c;
+  //   }
+  //   asciiImage += '<br/>';
+  // }
+  // asciiDiv.html(asciiImage);
 
 
   //beams
@@ -160,13 +161,13 @@ function draw() {
   //console.log(spectrum);
   
   strokeWeight(thickness);
-  //stroke('#6257AD')
-  stroke('rgba(160, 149, 230, 0.3)');
-  //stroke('#A095E6')
+  //stroke('#6257AD');
+  //stroke('rgba(160, 149, 230, 1)');
+  stroke('rgba(124, 116, 179, 0.4)');
+  //stroke('#A095E6');
   
-
   
-  translate(sketchWidth / 2, (sketchHeight / 2) + 80);
+  translate(sketchWidth / 2, (sketchHeight / 2) + 70);
   rotate(Math.PI / 180 * flip);
    //top half
    beginShape();
@@ -174,7 +175,7 @@ function draw() {
     
     const radius = spectrum[Math.round(angle / 500 * detail)];
     //const iradius = random(sketchWidth / 2 - (rimSize-rimFlutter),sketchHeight / 2 - rimSize);
-    const iradius = spectrum[Math.round(angle/400*detail+ribbon)]
+    const iradius = spectrum[Math.round(angle/mult*detail+ribbon)]
 
        const x = radius * cos(Math.PI / -effect * angle);
        const y = radius * sin(Math.PI / -effect * angle);
@@ -194,7 +195,7 @@ function draw() {
     
     const radius = spectrum[Math.round(angle / 500 * detail)];
     //const iradius = random(sketchWidth / 2 - (rimSize-rimFlutter),sketchHeight / 2 - rimSize);
-    const iradius = spectrum[Math.round(angle/400*detail+ribbon)]
+    const iradius = spectrum[Math.round(angle/mult*detail+ribbon)]
 
        const x = radius * cos(Math.PI / -effect * -angle);
        const y = radius * sin(Math.PI / -effect * -angle);
@@ -209,14 +210,15 @@ function draw() {
    endShape(CLOSE);
 
    //outer rim
-   stroke('rgba(160, 149, 230, 0.03)');
-    //top half
+   translate(20, 0);
+   stroke('rgba(160, 149, 230, 0.05)');
+    //outer top half
     beginShape();
     for(let angle = 0; angle < 360; angle += density) {
      
-     const radius = outerRim + spectrum[Math.round(angle / 500 * detail)];
+     const radius = outerRim + spectrum[Math.round(angle / 500 * 200)];
      //const iradius = random(sketchWidth / 2 - (rimSize-rimFlutter),sketchHeight / 2 - rimSize);
-     const iradius = outerRim + spectrum[Math.round(angle/400*detail+ribbon)]
+     const iradius = outerRim + spectrum[Math.round(angle/500*200+ribbon)]
  
         const x = radius * cos(Math.PI / -outerEffect * angle);
         const y = radius * sin(Math.PI / -outerEffect * angle);
@@ -230,13 +232,13 @@ function draw() {
     }
     endShape(CLOSE);
    
-    //bottom half
+    //outer bottom half
     beginShape();
     for(let angle = 0; angle < 360; angle += density) {
      
-     const radius = outerRim + spectrum[Math.round(angle / 500 * detail)];
+     const radius = outerRim + spectrum[Math.round(angle / 500 * 200)];
      //const iradius = random(sketchWidth / 2 - (rimSize-rimFlutter),sketchHeight / 2 - rimSize);
-     const iradius = outerRim + spectrum[Math.round(angle/400*detail+ribbon)]
+     const iradius = outerRim + spectrum[Math.round(angle/500*200+ribbon)]
  
         const x = radius * cos(Math.PI / -outerEffect * -angle);
         const y = radius * sin(Math.PI / -outerEffect * -angle);
@@ -250,8 +252,9 @@ function draw() {
     }
     endShape(CLOSE);
    
+    
 
-
+  
   //  let log = spectrum;
   //  fill()
   //  textSize(10);
