@@ -100,7 +100,7 @@ function setup() {
 
   let p = createP('jjung_vision_1.2');
     p.style('font-size', '10px');
-    p.position(sketchWidth - 140, sketchHeight - 2);
+    p.position(sketchWidth - 140, sketchHeight);
 
   let pMult = createP('RIBBON');
     pMult.style('font-size', '10px');
