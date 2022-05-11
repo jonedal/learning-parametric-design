@@ -43,6 +43,12 @@ let thickSlider;
 
 let flipButton;
 
+let pMultVal;
+let pDetailVal;
+let pDensityVal;
+let pThickVal;
+
+
 
 function setup() {
   createCanvas(sketchWidth, sketchHeight);
@@ -55,40 +61,83 @@ function setup() {
   let sources = audio.getSources();
   console.log(sources);
   audio.start();
+  audio.getSources();
+  console.log(audio.getSources());
+  audio.setSource(1);
 
   fft = new p5.FFT();
   fft.setInput(audio);
 
 
   multSlider = createSlider(400, 500, 470, 10);
-  multSlider.position(sketchWidth / 2 - 100, sketchHeight + 13);
-  multSlider.style('width', '200px');
-  multSlider.style('height', '5px');
-  multSlider.style('background', 'red');
+    multSlider.position(sketchWidth / 2 - 100, sketchHeight + 13);
+    multSlider.style('width', '200px');
+    multSlider.style('height', '5px');
+    multSlider.style('background', 'red');
 
   detailSlider = createSlider(100, 1500, 900, 50);
-  detailSlider.position(sketchWidth / 2 - 100, sketchHeight + 53);
-  detailSlider.style('width', '200px');
-  detailSlider.style('height', '5px');
+    detailSlider.position(sketchWidth / 2 - 100, sketchHeight + 53);
+    detailSlider.style('width', '200px');
+    detailSlider.style('height', '5px');
 
   densitySlider = createSlider(0.3, 5, 0.4, 0.1);
-  densitySlider.position(sketchWidth / 2 - 100, sketchHeight + 93);
-  densitySlider.style('width', '200px');
-  densitySlider.style('height', '5px');
+    densitySlider.position(sketchWidth / 2 - 100, sketchHeight + 93);
+    densitySlider.style('width', '200px');
+    densitySlider.style('height', '5px');
 
   thickSlider = createSlider(0.5, 5, 1.5, 0.5);
-  thickSlider.position(sketchWidth / 2 - 100, sketchHeight + 133);
-  thickSlider.style('width', '200px');
-  thickSlider.style('height', '5px');
+    thickSlider.position(sketchWidth / 2 - 100, sketchHeight + 133);
+    thickSlider.style('width', '200px');
+    thickSlider.style('height', '5px');
 
   flipButton = createButton('FLIP');
-  flipButton.position(sketchWidth / 2 - 320, sketchHeight + 8)
-  flipButton.size(80);
-  flipButton.mousePressed(flipVisuals);
+    flipButton.position(sketchWidth / 2 - 320, sketchHeight + 8)
+    flipButton.size(80);
+    flipButton.mousePressed(flipVisuals);
+    flipButton.style('background-color', 'rgba(160, 149, 230, 0.5)')
 
-  function flipVisuals() {
-    flip * -1;
-  }
+    function flipVisuals() {
+      flip * -1;
+    }
+
+  let p = createP('jjung_vision_1.2');
+    p.style('font-size', '10px');
+    p.position(sketchWidth - 140, sketchHeight - 2);
+
+  let pMult = createP('RIBBON');
+    pMult.style('font-size', '10px');
+    pMult.position(sketchWidth / 2 - 175, sketchHeight);  
+  
+  let pDetail = createP('DETAIL');
+    pDetail.style('font-size', '10px');
+    pDetail.position(sketchWidth / 2 - 175, sketchHeight + 40);  
+
+  let pDensity = createP('DENSITY');
+    pDensity.style('font-size', '10px');
+    pDensity.position(sketchWidth / 2 - 175, sketchHeight + 80);  
+
+  let pThick = createP('THICKNESS');
+    pThick.style('font-size', '10px');
+    pThick.position(sketchWidth / 2 - 175, sketchHeight + 120);  
+
+  
+  pMultVal = createP(multSlider.value());
+    pMultVal.style('font-size', '12px');
+    pMultVal.position(sketchWidth / 2 + 150, sketchHeight);  
+ 
+  pDetailVal = createP(detailSlider.value());
+    pDetailVal.style('font-size', '12px');
+    pDetailVal.position(sketchWidth / 2 + 150, sketchHeight + 38);  
+ 
+  pDensityVal = createP(densitySlider.value());
+    pDensityVal.style('font-size', '12px');
+    pDensityVal.position(sketchWidth / 2 + 150, sketchHeight + 78);  
+ 
+  pThickVal = createP(thickSlider.value());
+    pThickVal.style('font-size', '12px');
+    pThickVal.position(sketchWidth / 2 + 150, sketchHeight + 118);  
+
+
 
 
   // video = createCapture(VIDEO);
@@ -109,27 +158,7 @@ function setup() {
       grow: Math.round(random(0,1))
     });
   }
-   
-  let p = createP('j j u n g _ v i s i o n _ 1 . 2');
-    p.style('font-size', '10px');
-    p.position(sketchWidth - 157, sketchHeight - 1);
-
-  let pMult = createP('RIBBON');
-    pMult.style('font-size', '10px');
-    pMult.position(sketchWidth / 2 - 175, sketchHeight);  
-  
-  let pDetail = createP('DETAIL');
-    pDetail.style('font-size', '10px');
-    pDetail.position(sketchWidth / 2 - 175, sketchHeight + 40);  
-
-  let pDensity = createP('DENSITY');
-    pDensity.style('font-size', '10px');
-    pDensity.position(sketchWidth / 2 - 175, sketchHeight + 80);  
-
-  let pThick = createP('THICKNESS');
-    pThick.style('font-size', '10px');
-    pThick.position(sketchWidth / 2 - 175, sketchHeight + 120);  
-  }
+}
 
 let offset = 0;
 
@@ -307,23 +336,12 @@ function draw() {
     }
     endShape(CLOSE);
    
+  //slidervalues  
+  pMultVal.html(multSlider.value()); 
+  pDetailVal.html(detailSlider.value()); 
+  pDensityVal.html(densitySlider.value()); 
+  pThickVal.html(thickSlider.value()); 
 
-//  let pMultVal = createP(multSlider.value());
-//  pMultVal.style('font-size', '10px');
-//  pMultVal.position(sketchWidth / 2 + 150, sketchHeight);  
-
-//  let pDetailVal = createP(detailSlider.value());
-//  pDetailVal.style('font-size', '10px');
-//  pDetailVal.position(sketchWidth / 2 + 150, sketchHeight + 40);  
-
-//  let pDensityVal = createP(densitySlider.value());
-//  pDensityVal.style('font-size', '10px');
-//  pDensityVal.position(sketchWidth / 2 + 150, sketchHeight + 80);  
-
-//  let pThickVal = createP(thickSlider.value());
-//  pThickVal.style('font-size', '10px');
-//  pThickVal.position(sketchWidth / 2 + 150, sketchHeight + 120);  
-  
 }
 
   
