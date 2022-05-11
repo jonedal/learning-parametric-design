@@ -58,11 +58,9 @@ function setup() {
   userStartAudio();
 
   audio = new p5.AudioIn();
+  audio.start();
   let sources = audio.getSources();
   console.log(sources);
-  audio.start();
-  audio.getSources();
-  console.log(audio.getSources());
   audio.setSource(1);
 
   fft = new p5.FFT();
