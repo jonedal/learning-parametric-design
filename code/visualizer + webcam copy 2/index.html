@@ -24,9 +24,37 @@
     p {
       color: rgb(141, 135, 177);
       font-family: 'Trebuchet MS';
-      
+    }
+
+    .slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 200px;
+      height: 10px;
+      background: transparent;
+      outline: none;
+    }
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      cursor: pointer;
+      width: 10px;
+      height: 10px;
+      background: rgb(141, 135, 177);
+    }
+    .slider::-webkit-slider-runnable-track {
+      -webkit-appearance: none;
+      appearance: none;
+      background: rgb(141, 135, 177);
+      height: 3px;
     }
   </style>
+
+  <div class="slidecontainer">
+    <input type="range" min="400" max="500" value="470"
+      class="slider" id="ribbonSlider">  
+    <p>Ribbon: <span id="demo"></span></p>
+  </div>
 
   <body>
     <script src="/libraries/p5js/p5.min.js"></script>
@@ -34,4 +62,5 @@
     <script src="/libraries/p5js/libraries/p5.sound.min.js"></script>
     <script src="sketch.js"></script>
   </body>
+
 </html>

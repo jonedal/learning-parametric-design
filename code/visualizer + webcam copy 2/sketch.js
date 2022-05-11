@@ -21,8 +21,8 @@ let rimFlutter = 5;
 let ribbon = 1;
 //let mult = 480; //500: ribbon = 1 >> slider
 
-let effect = 90; //180, 90, 45, 360 >> radiobuttons?
-let flip = 270; //90, 270 >> button
+let effect = 90; //180, 90, 45, 360 >> buttons?
+let flip = 270; //90, 270 >> selector
 
 let outerRim = 120;
 let outerEffect = 360;
@@ -41,7 +41,13 @@ let detailSlider;
 let densitySlider;
 let thickSlider;
 
-let flipButton;
+let ribbonSlider = document.getElementById("ribbonSlider");
+let ribbonOutput = document.getElementById("demo");
+ribbonOutput.innerHTML = ribbonSlider.value;
+
+ribbonSlider.oninput = function() {
+  ribbonOutput.innerHTML = this.value;
+}
 
 
 function setup() {
@@ -81,15 +87,6 @@ function setup() {
   thickSlider.style('width', '200px');
   thickSlider.style('height', '5px');
 
-  flipButton = createButton('FLIP');
-  flipButton.position(sketchWidth / 2 - 320, sketchHeight + 8)
-  flipButton.size(80);
-  flipButton.mousePressed(flipVisuals);
-
-  function flipVisuals() {
-    flip * -1;
-  }
-
 
   // video = createCapture(VIDEO);
   // video.size(105, 42);
@@ -100,7 +97,7 @@ function setup() {
 
 
 
-  for (let sternCount = 0; sternCount < 150; sternCount += 1) {
+  for (let sternCount = 0; sternCount < 100; sternCount += 1) {
     sterne.push({
       x: random(0, sketchWidth),
       y: random(0, sketchHeight),
@@ -114,19 +111,19 @@ function setup() {
     p.style('font-size', '10px');
     p.position(sketchWidth - 157, sketchHeight - 1);
 
-  let pMult = createP('RIBBON');
+  let pMult = createP('ribbon');
     pMult.style('font-size', '10px');
     pMult.position(sketchWidth / 2 - 175, sketchHeight);  
   
-  let pDetail = createP('DETAIL');
+  let pDetail = createP('detail');
     pDetail.style('font-size', '10px');
     pDetail.position(sketchWidth / 2 - 175, sketchHeight + 40);  
 
-  let pDensity = createP('DENSITY');
+  let pDensity = createP('density');
     pDensity.style('font-size', '10px');
     pDensity.position(sketchWidth / 2 - 175, sketchHeight + 80);  
 
-  let pThick = createP('THICKNESS');
+  let pThick = createP('thickness');
     pThick.style('font-size', '10px');
     pThick.position(sketchWidth / 2 - 175, sketchHeight + 120);  
   }
@@ -204,6 +201,7 @@ function draw() {
   // }
   // asciiDiv.html(asciiImage);
 
+  //let mult = ribbonSlider.value();
   let mult = multSlider.value();
   let detail = detailSlider.value();
   let density = densitySlider.value();
