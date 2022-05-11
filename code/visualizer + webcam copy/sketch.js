@@ -13,15 +13,15 @@ let asciiDiv;
 //settings
 
 //beams
-//let thickness = 1.5; // >> slider?
-//let density = 0.4; //0.3, 2 >> slider?
+//let thickness = 1.5; // >> slider
+//let density = 0.4; //0.3, 2 >> slider
 //let detail = 900; //200, 800, 1500 >> slider
 let rimSize;
 let rimFlutter = 5;
 let ribbon = 1;
 //let mult = 480; //500: ribbon = 1 >> slider
 
-let effect = 90; //180, 90, 45, 360 >> radiobuttons?
+let effect = 90; //45, 90, 180, 360 >> radiobuttons?
 let flip = 270; //90, 270 >> button
 
 let outerRim = 120;
