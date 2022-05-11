@@ -95,7 +95,7 @@ function setup() {
     flipButton.style('background-color', 'rgba(160, 149, 230, 0.5)')
 
     function flipVisuals() {
-      flip * -1;
+      flip *= -1;
     }
 
   let p = createP('jjung_vision_1.2');
