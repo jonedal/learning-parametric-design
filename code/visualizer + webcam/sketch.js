@@ -194,8 +194,6 @@ function draw() {
    
    //80-100 percent
    
-    //  let avgs = logAverages(octaveBands);
-    //  console.log(avgs);
    
    beginShape();
    for(let angle = 350; angle < 360; angle += density) {
