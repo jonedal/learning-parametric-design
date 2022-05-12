@@ -1,5 +1,5 @@
 const sketchWidth = 750;
-const sketchHeight = 650;
+const sketchHeight = 580;
 let audio;
 
 //const weight = "Ñ@#W$9876543210?!abc;:+=-,._                    ";
@@ -19,12 +19,13 @@ let asciiDiv;
 let rimSize;
 let rimFlutter = 5;
 let ribbon = 1;
+outerRibbon = 0;
 //let mult = 480; //500: ribbon = 1 >> slider
 
-let effect = 90; //45, 90, 180, 360 >> radiobuttons?
+//let effect = 90; //45, 90, 180, 360 >> radiobuttons?
 let flip = 270; //90, 270 >> button
 
-let outerRim = 120;
+//let outerRim = 150;
 let outerEffect = 360;
 
 //stars
@@ -61,7 +62,7 @@ function setup() {
   audio.start();
   let sources = audio.getSources();
   console.log(sources);
-  audio.setSource(1);
+  //audio.setSource(1);
 
   fft = new p5.FFT();
   fft.setInput(audio);
@@ -73,7 +74,7 @@ function setup() {
     multSlider.style('height', '5px');
     multSlider.style('background', 'red');
 
-  detailSlider = createSlider(100, 1500, 900, 50);
+  detailSlider = createSlider(100, 1500, 1000, 50);
     detailSlider.position(sketchWidth / 2 - 100, sketchHeight + 53);
     detailSlider.style('width', '200px');
     detailSlider.style('height', '5px');
@@ -88,6 +89,16 @@ function setup() {
     thickSlider.style('width', '200px');
     thickSlider.style('height', '5px');
 
+  rimSlider = createSlider(50, 300, 130, 1);
+    rimSlider.position(sketchWidth / 2 - 100, sketchHeight + 173);
+    rimSlider.style('width', '200px');
+    rimSlider.style('height', '5px');
+  
+  effectSlider = createSlider(1, 360, 90, 1);
+    effectSlider.position(sketchWidth / 2 - 100, sketchHeight + 213);
+    effectSlider.style('width', '200px');
+    effectSlider.style('height', '5px');
+
   flipButton = createButton('FLIP');
     flipButton.position(sketchWidth / 2 - 320, sketchHeight + 8)
     flipButton.size(80);
@@ -96,7 +107,10 @@ function setup() {
 
     function flipVisuals() {
       flip *= -1;
+      //for(flip = 270; flip <= 90; flip ++) {}
+
     }
+
 
   let p = createP('jjung_vision_1.2');
     p.style('font-size', '10px');
@@ -117,6 +131,14 @@ function setup() {
   let pThick = createP('THICKNESS');
     pThick.style('font-size', '10px');
     pThick.position(sketchWidth / 2 - 175, sketchHeight + 120);  
+  
+  let pRim = createP('OUTER RIM');
+    pRim.style('font-size', '10px');
+    pRim.position(sketchWidth / 2 - 175, sketchHeight + 160);  
+  
+  let pEffect = createP('WINDING');
+    pEffect.style('font-size', '10px');
+    pEffect.position(sketchWidth / 2 - 175, sketchHeight + 200);  
 
   
   pMultVal = createP(multSlider.value());
@@ -134,6 +156,14 @@ function setup() {
   pThickVal = createP(thickSlider.value());
     pThickVal.style('font-size', '12px');
     pThickVal.position(sketchWidth / 2 + 150, sketchHeight + 118);  
+  
+  pRimVal = createP(rimSlider.value());
+    pRimVal.style('font-size', '12px');
+    pRimVal.position(sketchWidth / 2 + 150, sketchHeight + 158);  
+  
+  pEffectVal = createP(rimSlider.value());
+    pEffectVal.style('font-size', '12px');
+    pEffectVal.position(sketchWidth / 2 + 150, sketchHeight + 198);  
 
 
 
@@ -235,6 +265,8 @@ function draw() {
   let detail = detailSlider.value();
   let density = densitySlider.value();
   let thickness = thickSlider.value();
+  let outerRim = rimSlider.value();
+  let effect = effectSlider.value();
 
 
 
@@ -245,7 +277,7 @@ function draw() {
   strokeWeight(thickness);
   //stroke('#6257AD');
   //stroke('rgba(160, 149, 230, 1)');
-  stroke('rgba(124, 116, 179, 0.4)');
+  stroke('rgba(178, 166, 255, 0.3)');
   //stroke('#A095E6');
   
   
@@ -293,14 +325,14 @@ function draw() {
 
    //outer rim
    translate(20, 0);
-   stroke('rgba(160, 149, 230, 0.05)');
+   stroke('rgba(160, 149, 230, 0.06)');
     //outer top half
     beginShape();
     for(let angle = 0; angle < 360; angle += density) {
      
-     const radius = outerRim + spectrum[Math.round(angle / 500 * 200)];
+     const radius = outerRim + spectrum[Math.round(angle / 500 * 300)];
      //const iradius = random(sketchWidth / 2 - (rimSize-rimFlutter),sketchHeight / 2 - rimSize);
-     const iradius = outerRim + spectrum[Math.round(angle/500*200+ribbon)]
+     const iradius = outerRim + spectrum[Math.round(angle/500*280+outerRibbon)]
  
         const x = radius * cos(Math.PI / -outerEffect * angle);
         const y = radius * sin(Math.PI / -outerEffect * angle);
@@ -318,9 +350,9 @@ function draw() {
     beginShape();
     for(let angle = 0; angle < 360; angle += density) {
      
-     const radius = outerRim + spectrum[Math.round(angle / 500 * 200)];
+     const radius = outerRim + spectrum[Math.round(angle / 500 * 300)];
      //const iradius = random(sketchWidth / 2 - (rimSize-rimFlutter),sketchHeight / 2 - rimSize);
-     const iradius = outerRim + spectrum[Math.round(angle/500*200+ribbon)]
+     const iradius = outerRim + spectrum[Math.round(angle/500*280+outerRibbon)]
  
         const x = radius * cos(Math.PI / -outerEffect * -angle);
         const y = radius * sin(Math.PI / -outerEffect * -angle);
@@ -339,6 +371,8 @@ function draw() {
   pDetailVal.html(detailSlider.value()); 
   pDensityVal.html(densitySlider.value()); 
   pThickVal.html(thickSlider.value()); 
+  pRimVal.html(rimSlider.value()); 
+  pEffectVal.html(effectSlider.value()); 
 
 }
 
