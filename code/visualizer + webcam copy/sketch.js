@@ -41,6 +41,9 @@ let multSlider;
 let detailSlider;
 let densitySlider;
 let thickSlider;
+let rimSlider;
+let effectSlider;
+let threshSlider;
 
 let flipButton;
 
@@ -48,6 +51,9 @@ let pMultVal;
 let pDetailVal;
 let pDensityVal;
 let pThickVal;
+let pRimVal;
+
+let peakDetect;
 
 
 
@@ -66,6 +72,8 @@ function setup() {
 
   fft = new p5.FFT();
   fft.setInput(audio);
+
+  peakDetect = new p5.PeakDetect(60, 100, 0.65, 5,);
 
 
   multSlider = createSlider(400, 500, 470, 10);
@@ -98,6 +106,11 @@ function setup() {
     effectSlider.position(sketchWidth / 2 - 100, sketchHeight + 213);
     effectSlider.style('width', '200px');
     effectSlider.style('height', '5px');
+  
+  threshSlider = createSlider(0.1, 1, 0.6, 0.1);
+    threshSlider.position(sketchWidth / 2 - 320, sketchHeight + 48);
+    threshSlider.style('width', '75px');
+    threshSlider.style('height', '5px');
 
   flipButton = createButton('FLIP');
     flipButton.position(sketchWidth / 2 - 320, sketchHeight + 8)
@@ -112,9 +125,13 @@ function setup() {
     }
 
 
-  let p = createP('jjung_vision_1.2');
-    p.style('font-size', '10px');
-    p.position(sketchWidth - 140, sketchHeight);
+  let pTag = createP('jjung_vision_1.3');
+    pTag.style('font-size', '10px');
+    pTag.position(sketchWidth - 140, sketchHeight);
+  
+  let pData = createP('© JD - FHP 20341');
+    pData.style('font-size', '10px');
+    pData.position(sketchWidth - 140, sketchHeight + 40);
 
   let pMult = createP('RIBBON');
     pMult.style('font-size', '10px');
@@ -139,6 +156,10 @@ function setup() {
   let pEffect = createP('WINDING');
     pEffect.style('font-size', '10px');
     pEffect.position(sketchWidth / 2 - 175, sketchHeight + 200);  
+  
+  let pThresh = createP('= THR');
+    pThresh.style('font-size', '8px');
+    pThresh.position(sketchWidth / 2 - 272, sketchHeight + 62);  
 
   
   pMultVal = createP(multSlider.value());
@@ -164,6 +185,10 @@ function setup() {
   pEffectVal = createP(rimSlider.value());
     pEffectVal.style('font-size', '12px');
     pEffectVal.position(sketchWidth / 2 + 150, sketchHeight + 198);  
+  
+  pTreshVal = createP(threshSlider.value());
+    pTreshVal.style('font-size', '9px');
+    pTreshVal.position(sketchWidth / 2 - 318, sketchHeight + 59);  
 
 
 
@@ -267,19 +292,22 @@ function draw() {
   let thickness = thickSlider.value();
   let outerRim = rimSlider.value();
   let effect = effectSlider.value();
-
-
+  let thresh = threshSlider.value();
 
   //beams
-  let spectrum = fft.analyze();
-  //console.log(spectrum);
-  
   strokeWeight(thickness);
-  //stroke('#6257AD');
   //stroke('rgba(160, 149, 230, 1)');
   stroke('rgba(178, 166, 255, 0.3)');
-  //stroke('#A095E6');
   
+  let spectrum = fft.analyze();
+  //console.log(spectrum);
+  peakDetect.update(fft);
+  
+  // if (peakDetect.isDetected) {
+  //   stroke('#6C5880');
+  // } else {
+  //   stroke('rgba(178, 166, 255, 0.3)');
+  // }
   
   translate(sketchWidth / 2, (sketchHeight / 2) + 70);
   rotate(Math.PI / 180 * flip);
@@ -325,14 +353,14 @@ function draw() {
 
    //outer rim
    translate(20, 0);
-   stroke('rgba(160, 149, 230, 0.06)');
+   stroke('rgba(160, 149, 230, 0.04)');
     //outer top half
     beginShape();
     for(let angle = 0; angle < 360; angle += density) {
      
      const radius = outerRim + spectrum[Math.round(angle / 500 * 300)];
-     //const iradius = random(sketchWidth / 2 - (rimSize-rimFlutter),sketchHeight / 2 - rimSize);
-     const iradius = outerRim + spectrum[Math.round(angle/500*280+outerRibbon)]
+     const iradius = 500
+     //const iradius = outerRim + spectrum[Math.round(angle/500*280+outerRibbon)]
  
         const x = radius * cos(Math.PI / -outerEffect * angle);
         const y = radius * sin(Math.PI / -outerEffect * angle);
@@ -351,8 +379,8 @@ function draw() {
     for(let angle = 0; angle < 360; angle += density) {
      
      const radius = outerRim + spectrum[Math.round(angle / 500 * 300)];
-     //const iradius = random(sketchWidth / 2 - (rimSize-rimFlutter),sketchHeight / 2 - rimSize);
-     const iradius = outerRim + spectrum[Math.round(angle/500*280+outerRibbon)]
+     const iradius = 500
+     //const iradius = outerRim + spectrum[Math.round(angle/500*280+outerRibbon)]
  
         const x = radius * cos(Math.PI / -outerEffect * -angle);
         const y = radius * sin(Math.PI / -outerEffect * -angle);
@@ -373,7 +401,8 @@ function draw() {
   pThickVal.html(thickSlider.value()); 
   pRimVal.html(rimSlider.value()); 
   pEffectVal.html(effectSlider.value()); 
-
+  pTreshVal.html(threshSlider.value()); 
+  
 }
 
   
