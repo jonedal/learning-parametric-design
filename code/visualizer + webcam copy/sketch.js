@@ -2,10 +2,12 @@ const sketchWidth = 750;
 const sketchHeight = 580;
 let audio;
 
-//let weight = "Ñ@#W$9876543210?!abc;:+=-,._                    ";
-//let weight = '       .:-i|=+%O#@'
-//let weight = '        .:░▒▓█';
-let weight = '█▓▒░:.        ';
+//let weight = 'Ñ@#W$9876543210?!abc;:+=-,._                    ';
+//let weight = '                    _.,-=+:;cba!?0123456789$W#@Ñ';
+//let weight = '       .:-i|=+%O#@';
+//let weight = '@#O%+=|i-:.       ';
+let weight = '        .:░▒▓█';
+//let weight = '█▓▒░:.        ';
 
 let video;
 let asciiDiv;
@@ -110,13 +112,13 @@ function setup() {
     threshSlider.style('width', '75px');
     threshSlider.style('height', '5px');
 
-  flipButton = createButton('FLIP');
+  flipButton = createButton('FLIP V');
     flipButton.position(sketchWidth / 2 - 320, sketchHeight + 8)
     flipButton.size(80);
     flipButton.mousePressed(flipVisuals);
     flipButton.style('background-color', 'rgba(160, 149, 230, 0.5)')
 
-    weightButton = createButton('INVERT');
+  weightButton = createButton('INVERT C');
     weightButton.position(sketchWidth / 2 - 320, sketchHeight + 98)
     weightButton.size(80);
     weightButton.mousePressed(invertWeight);
@@ -132,8 +134,15 @@ function setup() {
         weight = '        .:░▒▓█';
       } else if (weight === '        .:░▒▓█') {
         weight = '█▓▒░:.        ';
-      } 
-
+      } else if (weight === '       .:-i|=+%O#@') {
+        weight = '@#O%+=|i-:.       ';
+      } else if (weight === '@#O%+=|i-:.       ') {
+        weight = '       .:-i|=+%O#@';
+      } else if (weight === 'Ñ@#W$9876543210?!abc;:+=-,._                    ') {
+        weight = '                    _.,-=+:;cba!?0123456789$W#@Ñ';
+      } else if (weight === '                    _.,-=+:;cba!?0123456789$W#@Ñ') {
+        weight = 'Ñ@#W$9876543210?!abc;:+=-,._                    ';
+      }
     }
 
 
