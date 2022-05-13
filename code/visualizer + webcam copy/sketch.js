@@ -2,10 +2,10 @@ const sketchWidth = 750;
 const sketchHeight = 580;
 let audio;
 
-//const weight = "Ñ@#W$9876543210?!abc;:+=-,._                    ";
-const weight = '       .:-i|=+%O#@'
-//const weight = '        .:░▒▓█';
-//const weight = '█▓▒░:.        ';
+//let weight = "Ñ@#W$9876543210?!abc;:+=-,._                    ";
+//let weight = '       .:-i|=+%O#@'
+//let weight = '        .:░▒▓█';
+let weight = '█▓▒░:.        ';
 
 let video;
 let asciiDiv;
@@ -73,8 +73,6 @@ function setup() {
   fft = new p5.FFT();
   fft.setInput(audio);
 
-  peakDetect = new p5.PeakDetect(60, 100, 0.65, 5,);
-
 
   multSlider = createSlider(400, 500, 470, 10);
     multSlider.position(sketchWidth / 2 - 100, sketchHeight + 13);
@@ -118,18 +116,32 @@ function setup() {
     flipButton.mousePressed(flipVisuals);
     flipButton.style('background-color', 'rgba(160, 149, 230, 0.5)')
 
+    weightButton = createButton('INVERT');
+    weightButton.position(sketchWidth / 2 - 320, sketchHeight + 98)
+    weightButton.size(80);
+    weightButton.mousePressed(invertWeight);
+    weightButton.style('background-color', 'rgba(160, 149, 230, 0.5)')
+
     function flipVisuals() {
       flip *= -1;
       //for(flip = 270; flip <= 90; flip ++) {}
+    }
+
+    function invertWeight() {
+      if (weight === '█▓▒░:.        ') {
+        weight = '        .:░▒▓█';
+      } else if (weight === '        .:░▒▓█') {
+        weight = '█▓▒░:.        ';
+      } 
 
     }
 
 
-  let pTag = createP('jjung_vision_1.3');
+  let pTag = createP('jjung_vision_1.3.2');
     pTag.style('font-size', '10px');
     pTag.position(sketchWidth - 140, sketchHeight);
   
-  let pData = createP('© JD - FHP 20341');
+  let pData = createP('© JD - FHP (20341)');
     pData.style('font-size', '10px');
     pData.position(sketchWidth - 140, sketchHeight + 40);
 
@@ -193,13 +205,16 @@ function setup() {
 
 
 
-  // video = createCapture(VIDEO);
-  // video.size(105, 42);
-  // video.position(sketchWidth/sketchWidth - 10, sketchHeight + 20);
-  // asciiDiv = createDiv();
+  video = createCapture(VIDEO);
+  video.size(187, 77);
+  video.position(sketchWidth - 183, sketchHeight + 93);
+  video.style('', '');
+  asciiDiv = createDiv();
+  asciiDiv.position(0,0);
+  asciiDiv.size();
 
 
-
+  peakDetect = new p5.PeakDetect(60, 100, threshSlider.value(), 5,);
 
 
   for (let sternCount = 0; sternCount < 150; sternCount += 1) {
@@ -263,28 +278,28 @@ function draw() {
     sterne[s].y += random(-0.1, 0.1);
   }
   
-  // //webcam
-  // video.loadPixels();
-  // let asciiImage = "";
-  // for (let j = 0; j < video.height; j++) {
-  //   for (let i = 0; i < video.width; i++) {
+  //webcam
+  video.loadPixels();
+  let asciiImage = "";
+  for (let j = 0; j < video.height; j++) {
+    for (let i = 0; i < video.width; i++) {
       
-  //     const pixelIndex = (i + j * video.width) * 4;
-  //     const r = video.pixels[pixelIndex + 0];
-  //     const g = video.pixels[pixelIndex + 1];
-  //     const b = video.pixels[pixelIndex + 2];
+      const pixelIndex = (i + j * video.width) * 4;
+      const r = video.pixels[pixelIndex + 0];
+      const g = video.pixels[pixelIndex + 1];
+      const b = video.pixels[pixelIndex + 2];
       
-  //     const avg = (r + g + b) / 3;
-  //     const len = weight.length;
-  //     const charIndex = floor(map(avg, 0, 255, 0, len));
-  //     const c = weight.charAt(charIndex);
+      const avg = (r + g + b) / 3;
+      const len = weight.length;
+      const charIndex = floor(map(avg, 0, 255, 0, len));
+      const c = weight.charAt(charIndex);
       
-  //     if (c == " ") asciiImage += "&nbsp;";
-  //     else asciiImage += c;
-  //   }
-  //   asciiImage += '<br/>';
-  // }
-  // asciiDiv.html(asciiImage);
+      if (c == " ") asciiImage += "&nbsp;";
+      else asciiImage += c;
+    }
+    asciiImage += '<br/>';
+  }
+  asciiDiv.html(asciiImage);
 
   let mult = multSlider.value();
   let detail = detailSlider.value();
@@ -303,11 +318,13 @@ function draw() {
   //console.log(spectrum);
   peakDetect.update(fft);
   
-  // if (peakDetect.isDetected) {
-  //   stroke('#6C5880');
-  // } else {
-  //   stroke('rgba(178, 166, 255, 0.3)');
-  // }
+  if (peakDetect.isDetected) {
+    stroke('#6C5880');
+  } else {
+    stroke('rgba(178, 166, 255, 0.3)');
+  }
+  
+  //if (peakDetect.isDetected) {invertWeight}
   
   translate(sketchWidth / 2, (sketchHeight / 2) + 70);
   rotate(Math.PI / 180 * flip);
@@ -359,8 +376,8 @@ function draw() {
     for(let angle = 0; angle < 360; angle += density) {
      
      const radius = outerRim + spectrum[Math.round(angle / 500 * 300)];
-     const iradius = 500
-     //const iradius = outerRim + spectrum[Math.round(angle/500*280+outerRibbon)]
+     //const iradius = 800
+     const iradius = outerRim + spectrum[Math.round(angle/500*280+outerRibbon)]
  
         const x = radius * cos(Math.PI / -outerEffect * angle);
         const y = radius * sin(Math.PI / -outerEffect * angle);
@@ -379,8 +396,8 @@ function draw() {
     for(let angle = 0; angle < 360; angle += density) {
      
      const radius = outerRim + spectrum[Math.round(angle / 500 * 300)];
-     const iradius = 500
-     //const iradius = outerRim + spectrum[Math.round(angle/500*280+outerRibbon)]
+     //const iradius = 800
+     const iradius = outerRim + spectrum[Math.round(angle/500*280+outerRibbon)]
  
         const x = radius * cos(Math.PI / -outerEffect * -angle);
         const y = radius * sin(Math.PI / -outerEffect * -angle);
