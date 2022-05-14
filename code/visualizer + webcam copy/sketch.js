@@ -6,8 +6,8 @@ let audio;
 //let weight = '                    _.,-=+:;cba!?0123456789$W#@Ñ';
 //let weight = '       .:-i|=+%O#@';
 //let weight = '@#O%+=|i-:.       ';
-let weight = '        .:░▒▓█';
-//let weight = '█▓▒░:.        ';
+//let weight = '        .:░▒▓█';
+let weight = '█▓▒░:.        ';
 
 let video;
 let asciiDiv;
@@ -97,7 +97,7 @@ function setup() {
     thickSlider.style('width', '200px');
     thickSlider.style('height', '5px');
 
-  rimSlider = createSlider(50, 300, 130, 1);
+  rimSlider = createSlider(-400, 300, 130, 1);
     rimSlider.position(sketchWidth / 2 - 100, sketchHeight + 173);
     rimSlider.style('width', '200px');
     rimSlider.style('height', '5px');
@@ -112,13 +112,13 @@ function setup() {
     threshSlider.style('width', '75px');
     threshSlider.style('height', '5px');
 
-  flipButton = createButton('FLIP V');
+  flipButton = createButton('FLIP');
     flipButton.position(sketchWidth / 2 - 320, sketchHeight + 8)
     flipButton.size(80);
     flipButton.mousePressed(flipVisuals);
     flipButton.style('background-color', 'rgba(160, 149, 230, 0.5)')
 
-  weightButton = createButton('INVERT C');
+  weightButton = createButton('INVERT');
     weightButton.position(sketchWidth / 2 - 320, sketchHeight + 98)
     weightButton.size(80);
     weightButton.mousePressed(invertWeight);
@@ -223,7 +223,7 @@ function setup() {
   video = createCapture(VIDEO);
   video.size(187, 77);
   video.position(sketchWidth - 183, sketchHeight + 93);
-  video.style('', '');
+  //video.hide();
   asciiDiv = createDiv();
   asciiDiv.position(0,0);
   asciiDiv.size();
@@ -294,7 +294,7 @@ function draw() {
   }
   
   //webcam
-  //function camera () {
+  //function camera () { 
     video.loadPixels();
     let asciiImage = "";
     for (let j = 0; j < video.height; j++) {
@@ -387,7 +387,7 @@ function draw() {
 
    //outer rim
    translate(20, 0);
-   stroke('rgba(160, 149, 230, 0.08)');
+   stroke('rgba(160, 149, 230, 0.04)');
     //outer top half
     beginShape();
     for(let angle = 0; angle < 360; angle += density) {
