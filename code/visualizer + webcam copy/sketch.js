@@ -54,8 +54,10 @@ let pDetailVal;
 let pDensityVal;
 let pThickVal;
 let pRimVal;
+let pLevel;
 
 let peakDetect;
+
 
 
 
@@ -124,7 +126,7 @@ function setup() {
     weightButton.mousePressed(invertWeight);
     weightButton.style('background-color', 'rgba(160, 149, 230, 0.5)')
 
-    camButton = createButton('//CAM');
+  camButton = createButton('//CAM');
     camButton.position(sketchWidth - 139, sketchHeight + 203)
     camButton.size(100);
     camButton.mousePressed(camera);
@@ -152,7 +154,7 @@ function setup() {
     }
 
 
-  let pTag = createP('jjung_vision_1.3.2');
+  let pTag = createP('jjung_vision_1.3.3');
     pTag.style('font-size', '10px');
     pTag.position(sketchWidth - 140, sketchHeight);
   
@@ -217,6 +219,9 @@ function setup() {
     pTreshVal.style('font-size', '9px');
     pTreshVal.position(sketchWidth / 2 - 318, sketchHeight + 59);  
 
+  pLevel = createP();
+    pLevel.style('font-size', '11px');
+    pLevel.position(sketchWidth - 95, sketchHeight - 68);  
 
 
 
@@ -227,7 +232,6 @@ function setup() {
   asciiDiv = createDiv();
   asciiDiv.position(0,0);
   asciiDiv.size();
-
 
   peakDetect = new p5.PeakDetect(60, 100, threshSlider.value(), 5,);
 
@@ -248,9 +252,16 @@ let offset = 0;
 
 
 function draw() {
-  //background('#040638');
+  let level = audio.getLevel(); 
+  let bloat = map(level, 0, 1, 20, 100);
   background(31, 26, 42);
-
+  noFill();
+  strokeWeight(2);
+  stroke('rgba(178, 166, 255, 0.3)');
+  ellipse(sketchWidth - 90, sketchHeight - 50, bloat * 2, 25);
+  ellipse(sketchWidth - 90, sketchHeight - 50, bloat * 3, 25);
+  ellipse(sketchWidth - 90, sketchHeight - 50, bloat * 4, 25);
+  
   noStroke(); 
   /*
   //kosmos
@@ -427,7 +438,9 @@ function draw() {
  
     }
     endShape(CLOSE);
-   
+
+
+    
   //slidervalues  
   pMultVal.html(multSlider.value()); 
   pDetailVal.html(detailSlider.value()); 
@@ -436,6 +449,7 @@ function draw() {
   pRimVal.html(rimSlider.value()); 
   pEffectVal.html(effectSlider.value()); 
   pTreshVal.html(threshSlider.value()); 
+  pLevel.html(ceil(level * 1000));
   
 }
 
