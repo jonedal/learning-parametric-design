@@ -221,7 +221,7 @@ function setup() {
 
   pLevel = createP();
     pLevel.style('font-size', '11px');
-    pLevel.position(sketchWidth - 95, sketchHeight - 68);  
+    pLevel.position(sketchWidth - 96, sketchHeight - 68);  
 
 
 
@@ -257,7 +257,7 @@ function draw() {
   background(31, 26, 42);
   noFill();
   strokeWeight(2);
-  stroke('rgba(178, 166, 255, 0.3)');
+  stroke('rgba(178, 166, 255, 0.2)');
   ellipse(sketchWidth - 90, sketchHeight - 50, bloat * 2, 25);
   ellipse(sketchWidth - 90, sketchHeight - 50, bloat * 3, 25);
   ellipse(sketchWidth - 90, sketchHeight - 50, bloat * 4, 25);
@@ -449,7 +449,7 @@ function draw() {
   pRimVal.html(rimSlider.value()); 
   pEffectVal.html(effectSlider.value()); 
   pTreshVal.html(threshSlider.value()); 
-  pLevel.html(ceil(level * 1000));
+  pLevel.html(ceil((level * 1000))+10);
   
 }
 
