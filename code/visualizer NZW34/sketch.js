@@ -1,13 +1,13 @@
-const sketchWidth = 750;
-const sketchHeight = 580;
+const sketchWidth = 1420;
+const sketchHeight = 780;
 let audio;
 
-//let weight = 'Ñ@#W$9876543210?!abc;:+=-,._                    ';
+let weight = 'Ñ@#W$9876543210?!abc;:+=-,._                    ';
 //let weight = '                    _.,-=+:;cba!?0123456789$W#@Ñ';
 //let weight = '       .:-i|=+%O#@';
 //let weight = '@#O%+=|i-:.       ';
 //let weight = '        .:░▒▓█';
-let weight = '█▓▒░:.        ';
+//let weight = '█▓▒░:.        ';
 
 let video;
 let asciiDiv;
@@ -26,6 +26,7 @@ outerRibbon = 0;
 
 //let effect = 90; //45, 90, 180, 360 >> radiobuttons?
 let flip = 270; //90, 270 >> button
+let area = 2
 
 //let outerRim = 150;
 let outerEffect = 360;
@@ -45,7 +46,7 @@ let densitySlider;
 let thickSlider;
 let rimSlider;
 let effectSlider;
-let threshSlider;
+//let threshSlider;
 
 let flipButton;
 
@@ -80,48 +81,51 @@ function setup() {
 
   multSlider = createSlider(400, 500, 470, 10);
     multSlider.position(sketchWidth / 2 - 100, sketchHeight + 13);
-    multSlider.style('width', '200px');
+    multSlider.style('width', '70px');
     multSlider.style('height', '5px');
     multSlider.style('background', 'red');
+    multSlider.hide();
 
-  detailSlider = createSlider(100, 1500, 1000, 50);
-    detailSlider.position(sketchWidth / 2 - 100, sketchHeight + 53);
-    detailSlider.style('width', '200px');
+  detailSlider = createSlider(100, 1500, 1000, 10);
+    detailSlider.position(sketchWidth / 2 - 350, sketchHeight + 13);
+    detailSlider.style('width', '70px');
     detailSlider.style('height', '5px');
 
   densitySlider = createSlider(0.3, 5, 0.4, 0.1);
-    densitySlider.position(sketchWidth / 2 - 100, sketchHeight + 93);
-    densitySlider.style('width', '200px');
+    densitySlider.position(sketchWidth / 2 - 115, sketchHeight + 13);
+    densitySlider.style('width', '70px');
     densitySlider.style('height', '5px');
 
   thickSlider = createSlider(0.5, 5, 1.5, 0.5);
-    thickSlider.position(sketchWidth / 2 - 100, sketchHeight + 133);
-    thickSlider.style('width', '200px');
+    thickSlider.position(sketchWidth / 2 + 125, sketchHeight + 13);
+    thickSlider.style('width', '70px');
     thickSlider.style('height', '5px');
 
   rimSlider = createSlider(-400, 300, 130, 1);
     rimSlider.position(sketchWidth / 2 - 100, sketchHeight + 173);
-    rimSlider.style('width', '200px');
+    rimSlider.style('width', '70px');
     rimSlider.style('height', '5px');
+    rimSlider.hide();
   
   effectSlider = createSlider(1, 360, 90, 1);
     effectSlider.position(sketchWidth / 2 - 100, sketchHeight + 213);
-    effectSlider.style('width', '200px');
+    effectSlider.style('width', '70px');
     effectSlider.style('height', '5px');
+    effectSlider.hide();
   
-  threshSlider = createSlider(0.1, 1, 0.6, 0.1);
-    threshSlider.position(sketchWidth / 2 - 320, sketchHeight + 48);
-    threshSlider.style('width', '75px');
-    threshSlider.style('height', '5px');
+  // threshSlider = createSlider(0.1, 1, 0.6, 0.1);
+  //   threshSlider.position(sketchWidth / 2 - 320, sketchHeight + 48);
+  //   threshSlider.style('width', '75px');
+  //   threshSlider.style('height', '5px');
 
   flipButton = createButton('FLIP');
-    flipButton.position(sketchWidth / 2 - 320, sketchHeight + 8)
+    flipButton.position(160, sketchHeight + 7)
     flipButton.size(80);
     flipButton.mousePressed(flipVisuals);
     flipButton.style('background-color', 'rgba(160, 149, 230, 0.5)')
 
   weightButton = createButton('INVERT');
-    weightButton.position(sketchWidth / 2 - 320, sketchHeight + 98)
+    weightButton.position(40, sketchHeight + 7)
     weightButton.size(80);
     weightButton.mousePressed(invertWeight);
     weightButton.style('background-color', 'rgba(160, 149, 230, 0.5)')
@@ -131,6 +135,7 @@ function setup() {
     camButton.size(100);
     camButton.mousePressed(camera);
     camButton.style('background-color', 'rgba(160, 149, 230, 0.5)')
+    camButton.hide();
 
     function flipVisuals() {
       flip *= -1;
@@ -154,70 +159,76 @@ function setup() {
     }
 
 
-  let pTag = createP('jjung_vision_1.3.3');
+  let pTag = createP('jjung_vision_NZW.34 ___ (pre-alpha) ___');
     pTag.style('font-size', '10px');
-    pTag.position(sketchWidth - 140, sketchHeight);
+    pTag.position(sketchWidth - 370, sketchHeight + 1);
   
   let pData = createP('© JD - FHP (20341)');
     pData.style('font-size', '10px');
-    pData.position(sketchWidth - 140, sketchHeight + 40);
+    pData.position(sketchWidth - 143, sketchHeight + 1);
 
   let pMult = createP('RIBBON');
     pMult.style('font-size', '10px');
-    pMult.position(sketchWidth / 2 - 175, sketchHeight);  
+    pMult.position(sketchWidth / 2 - 175, sketchHeight); 
+    pMult.hide(); 
   
   let pDetail = createP('DETAIL');
     pDetail.style('font-size', '10px');
-    pDetail.position(sketchWidth / 2 - 175, sketchHeight + 40);  
+    pDetail.position(sketchWidth / 2 - 400, sketchHeight + 1);  
 
   let pDensity = createP('DENSITY');
     pDensity.style('font-size', '10px');
-    pDensity.position(sketchWidth / 2 - 175, sketchHeight + 80);  
+    pDensity.position(sketchWidth / 2 - 175, sketchHeight + 1);  
 
   let pThick = createP('THICKNESS');
     pThick.style('font-size', '10px');
-    pThick.position(sketchWidth / 2 - 175, sketchHeight + 120);  
+    pThick.position(sketchWidth / 2 + 50, sketchHeight + 1);  
   
   let pRim = createP('OUTER RIM');
     pRim.style('font-size', '10px');
     pRim.position(sketchWidth / 2 - 175, sketchHeight + 160);  
+    pRim.hide();
   
   let pEffect = createP('WINDING');
     pEffect.style('font-size', '10px');
     pEffect.position(sketchWidth / 2 - 175, sketchHeight + 200);  
+    pEffect.hide();
   
-  let pThresh = createP('= THR');
-    pThresh.style('font-size', '8px');
-    pThresh.position(sketchWidth / 2 - 272, sketchHeight + 62);  
+  // let pThresh = createP('= THR');
+  //   pThresh.style('font-size', '8px');
+  //   pThresh.position(sketchWidth / 2 - 272, sketchHeight + 62);  
 
   
   pMultVal = createP(multSlider.value());
     pMultVal.style('font-size', '12px');
     pMultVal.position(sketchWidth / 2 + 150, sketchHeight);  
+    pMultVal.hide();
  
   pDetailVal = createP(detailSlider.value());
     pDetailVal.style('font-size', '12px');
-    pDetailVal.position(sketchWidth / 2 + 150, sketchHeight + 38);  
+    pDetailVal.position(sketchWidth / 2 - 260, sketchHeight - 2);  
  
   pDensityVal = createP(densitySlider.value());
     pDensityVal.style('font-size', '12px');
-    pDensityVal.position(sketchWidth / 2 + 150, sketchHeight + 78);  
+    pDensityVal.position(sketchWidth / 2 - 20, sketchHeight - 2);  
  
   pThickVal = createP(thickSlider.value());
     pThickVal.style('font-size', '12px');
-    pThickVal.position(sketchWidth / 2 + 150, sketchHeight + 118);  
+    pThickVal.position(sketchWidth - 490, sketchHeight - 2);  
   
   pRimVal = createP(rimSlider.value());
     pRimVal.style('font-size', '12px');
     pRimVal.position(sketchWidth / 2 + 150, sketchHeight + 158);  
+    pRimVal.hide();
   
   pEffectVal = createP(rimSlider.value());
     pEffectVal.style('font-size', '12px');
     pEffectVal.position(sketchWidth / 2 + 150, sketchHeight + 198);  
+    pEffectVal.hide();
   
-  pTreshVal = createP(threshSlider.value());
-    pTreshVal.style('font-size', '9px');
-    pTreshVal.position(sketchWidth / 2 - 318, sketchHeight + 59);  
+  // pTreshVal = createP(threshSlider.value());
+  //   pTreshVal.style('font-size', '9px');
+  //   pTreshVal.position(sketchWidth / 2 - 318, sketchHeight + 59);  
 
   pLevel = createP();
     pLevel.style('font-size', '11px');
@@ -226,14 +237,15 @@ function setup() {
 
 
   video = createCapture(VIDEO);
-  video.size(187, 77);
+  //video.size(355, 103);
+  video.size(221, 65);
   video.position(sketchWidth - 183, sketchHeight + 93);
-  //video.hide();
+  video.hide();
   asciiDiv = createDiv();
   asciiDiv.position(0,0);
   asciiDiv.size();
 
-  peakDetect = new p5.PeakDetect(60, 100, threshSlider.value(), 5,);
+  peakDetect = new p5.PeakDetect(60, 100, 0.6, 5,);
 
 
   for (let sternCount = 0; sternCount < 150; sternCount += 1) {
@@ -252,12 +264,13 @@ let offset = 0;
 
 
 function draw() {
+  //soundlevel
   let level = audio.getLevel(); 
-  let bloat = map(level, 0, 1, 20, 100);
+  let bloat = map(level, 0, 1, 20, 50);
   background(31, 26, 42);
   noFill();
   strokeWeight(2);
-  stroke('rgba(178, 166, 255, 0.2)');
+  stroke('rgba(178, 166, 255, 0.4)');
   ellipse(sketchWidth - 90, sketchHeight - 50, bloat * 2, 25);
   ellipse(sketchWidth - 90, sketchHeight - 50, bloat * 3, 25);
   ellipse(sketchWidth - 90, sketchHeight - 50, bloat * 4, 25);
@@ -335,12 +348,12 @@ function draw() {
   let thickness = thickSlider.value();
   let outerRim = rimSlider.value();
   let effect = effectSlider.value();
-  let thresh = threshSlider.value();
+  //let thresh = threshSlider.value();
 
   //beams
   strokeWeight(thickness);
   //stroke('rgba(160, 149, 230, 1)');
-  stroke('rgba(178, 166, 255, 0.3)');
+  stroke('rgba(178, 166, 255, 0.4)');
   
   let spectrum = fft.analyze();
   //console.log(spectrum);
@@ -349,7 +362,7 @@ function draw() {
   if (peakDetect.isDetected) {
     stroke('#6C5880');
   } else {
-    stroke('rgba(178, 166, 255, 0.3)');
+    stroke('rgba(178, 166, 255, 0.4)');
   }
   
   
@@ -362,9 +375,9 @@ function draw() {
    beginShape();
    for(let angle = 0; angle < 360; angle += density) {
     
-    const radius = spectrum[Math.round(angle / 500 * detail)];
+    const radius = area * spectrum[Math.round(angle / 500 * detail)];
     //const iradius = random(sketchWidth / 2 - (rimSize-rimFlutter),sketchHeight / 2 - rimSize);
-    const iradius = spectrum[Math.round(angle/mult*detail+ribbon)]
+    const iradius = area * spectrum[Math.round(angle/mult*detail+ribbon)]
 
        const x = radius * cos(Math.PI / -effect * angle);
        const y = radius * sin(Math.PI / -effect * angle);
@@ -382,9 +395,9 @@ function draw() {
    beginShape();
    for(let angle = 0; angle < 360; angle += density) {
     
-    const radius = spectrum[Math.round(angle / 500 * detail)];
+    const radius = area * spectrum[Math.round(angle / 500 * detail)];
     //const iradius = random(sketchWidth / 2 - (rimSize-rimFlutter),sketchHeight / 2 - rimSize);
-    const iradius = spectrum[Math.round(angle/mult*detail+ribbon)]
+    const iradius = area * spectrum[Math.round(angle/mult*detail+ribbon)]
 
        const x = radius * cos(Math.PI / -effect * -angle);
        const y = radius * sin(Math.PI / -effect * -angle);
@@ -400,14 +413,14 @@ function draw() {
 
    //outer rim
    translate(20, 0);
-   stroke('rgba(160, 149, 230, 0.04)');
+   stroke('rgba(160, 149, 230, 0.08)');
     //outer top half
     beginShape();
     for(let angle = 0; angle < 360; angle += density) {
      
-     const radius = outerRim + spectrum[Math.round(angle / 500 * 300)];
+     const radius = outerRim + area * spectrum[Math.round(angle / 500 * 300)];
      //const iradius = 800
-     const iradius = outerRim + spectrum[Math.round(angle/500*280+outerRibbon)]
+     const iradius = outerRim + area * spectrum[Math.round(angle/500*280+outerRibbon)]
  
         const x = radius * cos(Math.PI / -outerEffect * angle);
         const y = radius * sin(Math.PI / -outerEffect * angle);
@@ -425,9 +438,9 @@ function draw() {
     beginShape();
     for(let angle = 0; angle < 360; angle += density) {
      
-     const radius = outerRim + spectrum[Math.round(angle / 500 * 300)];
+     const radius = outerRim + area * spectrum[Math.round(angle / 500 * 300)];
      //const iradius = 800
-     const iradius = outerRim + spectrum[Math.round(angle/500*280+outerRibbon)]
+     const iradius = outerRim + area * spectrum[Math.round(angle/500*280+outerRibbon)]
  
         const x = radius * cos(Math.PI / -outerEffect * -angle);
         const y = radius * sin(Math.PI / -outerEffect * -angle);
@@ -450,7 +463,7 @@ function draw() {
   pThickVal.html(thickSlider.value()); 
   pRimVal.html(rimSlider.value()); 
   pEffectVal.html(effectSlider.value()); 
-  pTreshVal.html(threshSlider.value()); 
+  //pTreshVal.html(threshSlider.value()); 
   pLevel.html(ceil((level * 1000))+10);
   
 }
