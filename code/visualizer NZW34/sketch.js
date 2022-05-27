@@ -26,7 +26,7 @@ outerRibbon = 0;
 
 //let effect = 90; //45, 90, 180, 360 >> radiobuttons?
 let flip = 270; //90, 270 >> button
-let area = 2
+let area = 1.5
 
 //let outerRim = 150;
 let outerEffect = 360;
@@ -101,7 +101,7 @@ function setup() {
     thickSlider.style('width', '70px');
     thickSlider.style('height', '5px');
 
-  rimSlider = createSlider(-400, 300, 130, 1);
+  rimSlider = createSlider(-400, 300, 200, 1);
     rimSlider.position(sketchWidth / 2 - 100, sketchHeight + 173);
     rimSlider.style('width', '70px');
     rimSlider.style('height', '5px');
@@ -267,7 +267,8 @@ function draw() {
   //soundlevel
   let level = audio.getLevel(); 
   let bloat = map(level, 0, 1, 20, 50);
-  background(31, 26, 42);
+  //background(31, 26, 42);
+  background(14, 8, 28);
   noFill();
   strokeWeight(2);
   stroke('rgba(178, 166, 255, 0.4)');
