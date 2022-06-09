@@ -1,7 +1,10 @@
 
-const density = "Ñ@#W$9876543210?!abc;:+=-,._                    ";
-//const density = '       .:-i|=+%O#@'
-//const density = '        .:░▒▓█';
+//let density = 'Ñ@#W$9876543210?!abc;:+=-,._                    ';
+//let density = '                    _.,-=+:;cba!?0123456789$W#@Ñ';
+//let density = '       .:-i|=+%O#@';
+let density = '@#O%+=|i-:.       ';
+//let density = '        .:░▒▓█';
+//let density = '█▓▒░:.        ';
 
 let video;
 let asciiDiv;
@@ -10,8 +13,9 @@ function setup() {
   //createCanvas(60, 42);
   noCanvas();
   video = createCapture(VIDEO);
-  video.size(95, 42);
+  video.size(180, 70);
   video.position(500,335);
+  video.hide();
   asciiDiv = createDiv();
 }
 
@@ -37,4 +41,6 @@ function draw() {
     asciiImage += '<br/>';
   }
   asciiDiv.html(asciiImage);
+
+  
 }
