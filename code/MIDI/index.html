@@ -1,0 +1,168 @@
+<html>
+	<head>
+		<style type="text/css">
+			body{
+				padding:20px;
+			}
+
+			.input.button{
+				display: block;
+				width:20px;
+				height:20px;
+				border:1px solid #000;
+				float:left;
+				margin-right:10px;
+				background-color: #fff;
+			}
+
+			.input.button[active="true"]{
+				background-color:#000;
+			}
+
+			.input.button:nth-child(even){
+				margin-top:30px;
+				margin-left:-32px;
+			}
+
+			.scene{
+				float:left;
+				display: block;
+				/* clear:both; */
+				border:1px solid black;
+				padding:10px 0 10px 10px;
+				margin-bottom:10px;
+				margin-right:10px;
+			}
+
+			.input.slider{
+				float:left;
+				width:20px;
+				height:127px;
+				border:1px solid black;
+				margin-right:10px;
+				margin-top:10px;
+			}
+
+			.input.button+.input.slider,
+			.input.slider+.input.knob{
+				clear:both;
+			}
+
+			.input.knob{
+				display: block;
+				width:20px;
+				height:20px;
+				border:1px solid #000;
+				float:left;
+				margin-right:10px;
+				margin-top:10px;
+				background-color: #fff;
+				border-radius: 10px;
+				border-top-left-radius: 0px;
+
+				-ms-transform: rotate(45deg); /* IE 9 */
+				-webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+				transform: rotate(45deg);
+			}
+		</style>
+	</head>
+	<body>
+		<div id="container"></div>
+		<script src="http://d3js.org/d3.v3.min.js"></script>
+		<script type="text/javascript">
+
+var midiAccess=null;  // the MIDIAccess object.
+var init = false;
+var controller = null;
+var controller_ids = {};
+var svg;
+
+/*---------- MIDI INITIALIZATION ----------*/
+
+window.addEventListener('load', function() {
+	if (navigator.requestMIDIAccess)
+		navigator.requestMIDIAccess().then( onMIDIInit, onMIDIReject );
+	else
+		alert("No MIDI support present in your browser.  You're gonna have a bad time.")
+
+} );
+
+function onMIDIInit(midi) {
+	midiAccess = midi;
+
+	var haveAtLeastOneDevice=false;
+	var inputs=midiAccess.inputs.values();
+	for ( var input = inputs.next(); input && !input.done; input = inputs.next()) {
+		input.value.onmidimessage = MIDIMessageEventHandler;
+		haveAtLeastOneDevice = true;
+	}
+
+	if (!haveAtLeastOneDevice){
+		alert("No MIDI input devices present.  You're gonna have a bad time.");
+	}else{
+		initD3();
+	}
+}
+
+function onMIDIReject(err) {
+	alert("The MIDI system failed to start.  You're gonna have a bad time.");
+}
+
+function MIDIMessageEventHandler(event) {
+	
+	if(init){
+		var id = controller_ids[event.data[0]+"_"+event.data[1]];
+		//console.log(event.data[0], event.data[1], event.data[2], id);
+
+		controller.inputs[id.s][id.i].v = event.data[2];
+
+		updateVis();
+	}
+}
+
+/*---------- D3 DRAWING ----------*/
+
+function initD3(){
+	//load the json of the connected controller
+	d3.json('midiController.korg.nanoKONTROL.json', function(err, data){
+		controller = data;
+		init = true;
+
+		//create an array of ids for fast access
+		for(var s = 0; s<controller.inputs.length; s++){
+			for(var i = 0; i<controller.inputs[s].length; i++){
+				controller_ids[controller.inputs[s][i].d[0]+"_"+controller.inputs[s][i].d[1]] = {s:s,i:i};
+			}
+		}
+
+		svg = d3.select("#container");
+
+		updateVis();
+	});
+}
+
+function updateVis(){
+	var scenes = svg.selectAll('div.scene').data(controller.inputs);
+		scenes.enter().append('div');
+		scenes.attr('class', 'scene');
+		scenes.exit().remove();
+
+	var inputs = scenes.selectAll('div.input').data(function(d){ return d; });
+		inputs.enter().append('div');
+		inputs.attr('class', function(d){ return d.type+' input'; });
+
+		inputs.filter(function(d){ if(d.type === 'button'){ return true; }else{ return false; }})
+			.attr('active', function(d){ if(d.v > 0){ return 'true'; }else{ return 'false'; } });
+
+		inputs.filter(function(d){ if(d.type === 'slider'){ return true; }else{ return false; }})
+			.attr('style', function(d){ return 'height:'+(127-d.v)+'px; border-bottom-width:'+(d.v+1)+'px;'; });
+
+		inputs.filter(function(d){ if(d.type === 'knob'){ return true; }else{ return false; }})
+			.attr('style', function(d){ var deg = -90+(d.v/127)*270; return '-ms-transform: rotate('+deg+'deg); -webkit-transform: rotate('+deg+'deg); transform: rotate('+deg+'deg);'; });
+
+		inputs.exit().remove();
+}
+
+		</script>
+	</body>
+</html>

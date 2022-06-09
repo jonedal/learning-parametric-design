@@ -1,0 +1,436 @@
+{
+	"manufacturer": "KORG INC.",
+	"name": "nanoPAD PAD",
+	"min": 0,
+	"max": 127,
+	"inputs": [
+		[
+			{
+				"type": "pad",
+				"down": [144,37],
+				"up": [128,37],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,36],
+				"up": [128,36],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,39],
+				"up": [128,39],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,38],
+				"up": [128,38],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,41],
+				"up": [128,41],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,40],
+				"up": [128,40],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,43],
+				"up": [128,43],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,42],
+				"up": [128,42],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,45],
+				"up": [128,45],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,44],
+				"up": [128,44],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,47],
+				"up": [128,47],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,46],
+				"up": [128,46],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,49],
+				"up": [128,49],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,48],
+				"up": [128,48],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,51],
+				"up": [128,51],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,50],
+				"up": [128,50],
+				"state": false
+			},
+			{
+				"type": "xy",
+				"x": [176,1],
+				"y": [176,2],
+				"t": [176,16],
+				"xv": 0,
+				"yv": 0,
+				"dv": 0
+			}
+		],
+		[
+			{
+				"type": "pad",
+				"down": [144,53],
+				"up": [128,53],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,52],
+				"up": [128,52],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,55],
+				"up": [128,55],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,54],
+				"up": [128,54],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,57],
+				"up": [128,57],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,56],
+				"up": [128,56],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,59],
+				"up": [128,59],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,58],
+				"up": [128,58],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,61],
+				"up": [128,61],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,60],
+				"up": [128,60],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,63],
+				"up": [128,63],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,62],
+				"up": [128,62],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,65],
+				"up": [128,65],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,64],
+				"up": [128,64],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,67],
+				"up": [128,67],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,66],
+				"up": [128,6],
+				"state": false
+			},
+			{
+				"type": "xy",
+				"x": [176,1],
+				"y": [176,2],
+				"t": [176,16],
+				"xv": 0,
+				"yv": 0,
+				"dv": 0
+			}
+		],
+		[
+			{
+				"type": "pad",
+				"down": [144,69],
+				"up": [128,69],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,68],
+				"up": [128,68],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,71],
+				"up": [128,71],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,70],
+				"up": [128,70],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,73],
+				"up": [128,73],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,72],
+				"up": [128,72],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,75],
+				"up": [128,75],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,74],
+				"up": [128,74],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,77],
+				"up": [128,77],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,76],
+				"up": [128,76],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,79],
+				"up": [128,79],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,78],
+				"up": [128,78],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,81],
+				"up": [128,81],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,80],
+				"up": [128,80],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,83],
+				"up": [128,83],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,82],
+				"up": [128,82],
+				"state": false
+			},
+			{
+				"type": "xy",
+				"x": [176,1],
+				"y": [176,2],
+				"t": [176,16],
+				"xv": 0,
+				"yv": 0,
+				"dv": 0
+			}
+		],
+		[
+			{
+				"type": "pad",
+				"down": [144,85],
+				"up": [128,85],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,84],
+				"up": [128,84],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,87],
+				"up": [128,87],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,86],
+				"up": [128,86],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,89],
+				"up": [128,89],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,88],
+				"up": [128,88],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,91],
+				"up": [128,91],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,90],
+				"up": [128,90],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,93],
+				"up": [128,93],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,92],
+				"up": [128,92],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,95],
+				"up": [128,95],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,94],
+				"up": [128,94],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,97],
+				"up": [128,97],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,96],
+				"up": [128,96],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,99],
+				"up": [128,99],
+				"state": false
+			},
+			{
+				"type": "pad",
+				"down": [144,98],
+				"up": [128,98],
+				"state": false
+			},
+			{
+				"type": "xy",
+				"x": [176,1],
+				"y": [176,2],
+				"t": [176,16],
+				"xv": 0,
+				"yv": 0,
+				"dv": 0
+			}
+		]
+	]
+}
