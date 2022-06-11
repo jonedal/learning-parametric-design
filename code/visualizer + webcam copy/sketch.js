@@ -221,7 +221,7 @@ function setup() {
 
   pLevel = createP();
     pLevel.style('font-size', '11px');
-    pLevel.position(sketchWidth - 96, sketchHeight - 68);  
+    pLevel.position(sketchWidth - 94, sketchHeight - 68);  
 
 
 
@@ -253,7 +253,7 @@ let offset = 0;
 
 function draw() {
   let level = audio.getLevel(); 
-  let bloat = map(level, 0, 1, 20, 100);
+  let bloat = map(level, 0, 1, 20, 50);
   background(31, 26, 42);
   noFill();
   strokeWeight(2);
@@ -451,8 +451,9 @@ function draw() {
   pRimVal.html(rimSlider.value()); 
   pEffectVal.html(effectSlider.value()); 
   pTreshVal.html(threshSlider.value()); 
-  pLevel.html(ceil((level * 1000))+10);
-  
+  //pLevel.html(ceil((level * 1000))+10);
+  pLevel.html(ceil(map(level, 0, 1, 0, 99)));
+  //console.log(level);
 }
 
   
