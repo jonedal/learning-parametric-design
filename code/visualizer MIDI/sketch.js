@@ -1,4 +1,5 @@
 let vistype = 'verts';
+let thickness = 4;
 
 var midiAccess=null;  // the MIDIAccess object.
 var init = false;
@@ -74,13 +75,21 @@ function MIDIMessageEventHandler(event) {
       vistype = 'ellips';
     } else if (controller.inputs[0][10].v === 127) {
       vistype = 'rects';
-    }
+    } else if (controller.inputs[0][17].v === 127) {
+      location.reload();
+    } else if (controller.inputs[0][16].v === 127) {
+      flipVisuals();
 	}
 }
 
+}
+function flipVisuals() {
+  flip *= -1;
+}
 
-const sketchWidth = 750;
-const sketchHeight = 580;
+
+const sketchWidth = 1420;
+const sketchHeight = 780;
 let audio;
 
 //let weight = 'Ñ@#W$9876543210?!abc;:+=-,._                    ';
@@ -136,6 +145,7 @@ let pDensityVal;
 let pThickVal;
 let pRimVal;
 let pLevel;
+let area;
 
 let peakDetect;
 
@@ -195,26 +205,23 @@ function setup() {
     threshSlider.style('width', '75px');
     threshSlider.style('height', '5px');
 
-  flipButton = createButton('FLIP');
-    flipButton.position(sketchWidth / 2 - 320, sketchHeight + 8)
+    flipButton = createButton('FLIP');
+    flipButton.position(160, sketchHeight + 7)
     flipButton.size(80);
     flipButton.mousePressed(flipVisuals);
     flipButton.style('background-color', 'rgba(160, 149, 230, 0.5)')
 
-  
-    function flipVisuals() {
-      flip *= -1;
-    }
 
 
 
-  let pTag = createP('jjung_vision_1.3.3');
+
+  let pTag = createP('jjung_vision_2.1 ___ (MIDI - CTRL) ___');
     pTag.style('font-size', '10px');
-    pTag.position(sketchWidth - 140, sketchHeight);
+    pTag.position(sketchWidth - 370, sketchHeight + 1);
   
   let pData = createP('© JD - FHP (20341)');
     pData.style('font-size', '10px');
-    pData.position(sketchWidth - 140, sketchHeight + 40);
+    pData.position(sketchWidth - 143, sketchHeight + 1);
 
   let pMult = createP('RIBBON');
     pMult.style('font-size', '10px');
@@ -351,13 +358,15 @@ function draw() {
   // let thresh = threshSlider.value();
 
   let mult = multSlider.value();
-  let detail = controller.inputs[0][28].v / 127 * 1400 + 100;
-  let density = controller.inputs[0][27].v / 127 * 4.5 + 0.5;
-  let thickness = controller.inputs[0][35].v / 127 * 4.5 + 0.5;
+  let detail = map(controller.inputs[0][28].v, 0, 127, 100, 1500);
+  let density = map(controller.inputs[0][27].v, 0, 127, 0.5, 5);
+  let thickness = map(controller.inputs[0][34].v, 0, 127, 0.5, 5);
   let outerRim = rimSlider.value();
-  let effect = controller.inputs[0][29].v / 127 * 315 + 45;
+  let effect = map(controller.inputs[0][29].v, 0, 127, 1, 360);
   let thresh = threshSlider.value();
   let alpha = controller.inputs[0][34].v / 127 * 0.9 + 0.1;
+  let corners = map(controller.inputs[0][32].v, 0, 127, 0, 50);
+  area = map(controller.inputs[0][35].v, 0, 127, 0.5, 3);
 
 
   //beams
@@ -384,9 +393,9 @@ function draw() {
    beginShape();
    for(let angle = 0; angle < 360; angle += density) {
     
-    const radius = spectrum[Math.round(angle / 500 * detail)];
+    const radius = area * spectrum[Math.round(angle / 500 * detail)];
     //const iradius = random(sketchWidth / 2 - (rimSize-rimFlutter),sketchHeight / 2 - rimSize);
-    const iradius = spectrum[Math.round(angle/mult*detail+ribbon)]
+    const iradius = area * spectrum[Math.round(angle/mult*detail+ribbon)]
 
        const x = radius * cos(Math.PI / -effect * angle);
        const y = radius * sin(Math.PI / -effect * angle);
@@ -406,7 +415,7 @@ function draw() {
     } else if (vistype === 'lines') {
       line(x,y,ix,iy);
     } else if (vistype === 'rects') {
-      rect(x,y,ix,iy, 2);
+      rect(x,y,ix,iy, corners);
     }
 
    }
@@ -416,9 +425,9 @@ function draw() {
    beginShape();
    for(let angle = 0; angle < 360; angle += density) {
     
-    const radius = spectrum[Math.round(angle / 500 * detail)];
+    const radius = area * spectrum[Math.round(angle / 500 * detail)];
     //const iradius = random(sketchWidth / 2 - (rimSize-rimFlutter),sketchHeight / 2 - rimSize);
-    const iradius = spectrum[Math.round(angle/mult*detail+ribbon)]
+    const iradius = area * spectrum[Math.round(angle/mult*detail+ribbon)]
 
        const x = radius * cos(Math.PI / -effect * -angle);
        const y = radius * sin(Math.PI / -effect * -angle);
@@ -437,7 +446,7 @@ function draw() {
       } else if (vistype === 'lines') {
         line(x,y,ix,iy);
       } else if (vistype === 'rects') {
-        rect(x,y,ix,iy, 2);
+        rect(x,y,ix,iy, corners);
       }
 
    }
