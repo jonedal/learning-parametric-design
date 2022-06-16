@@ -126,9 +126,6 @@ const maxSize = 4;
 const growValue = 0.07;
 let offsetX = 0;
 
-//background
-//let noiseSpeed = 0.015;
-
 let multSlider;
 let detailSlider;
 let densitySlider;
@@ -148,6 +145,8 @@ let pLevel;
 let area;
 
 let peakDetect;
+
+let noiseSpeed = 0.008;
 
 
 
@@ -174,45 +173,43 @@ function setup() {
     multSlider.style('width', '200px');
     multSlider.style('height', '5px');
     multSlider.style('background', 'red');
+    multSlider.hide();
 
   detailSlider = createSlider(100, 1500, 100, 50);
     detailSlider.position(sketchWidth / 2 - 100, sketchHeight + 53);
     detailSlider.style('width', '200px');
     detailSlider.style('height', '5px');
+    detailSlider.hide();
 
   densitySlider = createSlider(0.5, 5, 0.5, 0.01);
     densitySlider.position(sketchWidth / 2 - 100, sketchHeight + 93);
     densitySlider.style('width', '200px');
     densitySlider.style('height', '5px');
+    densitySlider.hide();
 
   thickSlider = createSlider(0.5, 5, 1.5, 0.5);
     thickSlider.position(sketchWidth / 2 - 100, sketchHeight + 133);
     thickSlider.style('width', '200px');
     thickSlider.style('height', '5px');
+    thickSlider.hide();
 
   rimSlider = createSlider(-400, 300, 130, 1);
     rimSlider.position(sketchWidth / 2 - 100, sketchHeight + 173);
     rimSlider.style('width', '200px');
     rimSlider.style('height', '5px');
+    rimSlider.hide();
   
   effectSlider = createSlider(1, 360, 45, 0.1);
     effectSlider.position(sketchWidth / 2 - 100, sketchHeight + 213);
     effectSlider.style('width', '200px');
     effectSlider.style('height', '5px');
+    effectSlider.hide();
   
   threshSlider = createSlider(0.1, 1, 0.6, 0.1);
     threshSlider.position(sketchWidth / 2 - 320, sketchHeight + 48);
     threshSlider.style('width', '75px');
     threshSlider.style('height', '5px');
-
-    flipButton = createButton('FLIP');
-    flipButton.position(160, sketchHeight + 7)
-    flipButton.size(80);
-    flipButton.mousePressed(flipVisuals);
-    flipButton.style('background-color', 'rgba(160, 149, 230, 0.5)')
-
-
-
+    threshSlider.hide();
 
 
   let pTag = createP('jjung_vision_2.1 ___ (MIDI - CTRL) ___');
@@ -310,8 +307,29 @@ function draw() {
   if (init == true) {
   //loudness
   let level = audio.getLevel(); 
+  
+  noStroke(); 
+  const size = 8;
+  let hue = map(controller.inputs[0][24].v, 0, 127, 255, 0);
+  let sat = map(controller.inputs[0][25].v, 0, 127, 50, 255);
+  let bright = map(controller.inputs[0][26].v, 0, 127, 70, 30);
+
+  colorMode(HSB);
+  for (let nx = 0; nx < sketchWidth; nx += size) {
+    for (let ny = 0; ny < sketchHeight; ny += size) {
+    
+      const colorValue = noise(
+        nx / 1000, ny / 1000, offset);
+        fill(hue, sat, colorValue * map(level, 0, 1, bright, bright + 15));
+      rect(nx, ny, size);
+    }
+  }
+  offset += noiseSpeed;
+  
+  
   let bloat = map(level, 0, 1, 20, 50);
-  background(31, 26, 42);
+  //background(31, 26, 42);
+  //background(259, 38, map(level, 0, 1, 16, 25));
   noFill();
   strokeWeight(2);
   stroke('rgba(178, 166, 255, 0.2)');
@@ -319,7 +337,7 @@ function draw() {
   ellipse(sketchWidth - 90, sketchHeight - 50, bloat * 3, 25);
   ellipse(sketchWidth - 90, sketchHeight - 50, bloat * 4, 25);
   
-  noStroke(); 
+  
       
 
   // //sterne
@@ -349,17 +367,11 @@ function draw() {
   
 
 
-  // let mult = multSlider.value();
-  // let detail = detailSlider.value();
-  //let density = densitySlider.value();
-  // let thickness = thickSlider.value();
-  // let outerRim = rimSlider.value();
-  // let effect = effectSlider.value();
-  // let thresh = threshSlider.value();
+
 
   let mult = multSlider.value();
-  let detail = map(controller.inputs[0][28].v, 0, 127, 100, 1500);
-  let density = map(controller.inputs[0][27].v, 0, 127, 0.5, 5);
+  let detail = map(controller.inputs[0][28].v, 0, 127, 10, 2000);
+  let density = map(controller.inputs[0][27].v, 0, 127, 0.1, 5);
   let thickness = map(controller.inputs[0][34].v, 0, 127, 0.5, 5);
   let outerRim = rimSlider.value();
   let effect = map(controller.inputs[0][29].v, 0, 127, 1, 360);
@@ -369,13 +381,12 @@ function draw() {
   area = map(controller.inputs[0][35].v, 0, 127, 0.5, 3);
 
 
+  colorMode(RGB);
   //beams
   strokeWeight(thickness);
   noFill();
-  //fill('rgba(178, 166, 255, 0.01)');
-  //stroke('rgba(160, 149, 230, 1)');
   stroke('rgba(178, 166, 255, 0.3)');
-  //stroke('rgba(58, 253, 8, 0.3)');
+  
 
   let spectrum = fft.analyze();
   peakDetect.update(fft);
@@ -457,12 +468,12 @@ function draw() {
 
     
   //slidervalues  
-  pMultVal.html(multSlider.value()); 
-  pDetailVal.html(detailSlider.value()); 
-  pDensityVal.html(densitySlider.value()); 
-  pThickVal.html(thickSlider.value()); 
-  pRimVal.html(rimSlider.value()); 
-  pEffectVal.html(effectSlider.value()); 
+  //pMultVal.html(multSlider.value()); 
+  pDetailVal.html(round(map(controller.inputs[0][28].v, 0, 127, 1, 100))); 
+  pDensityVal.html(round(map(controller.inputs[0][27].v, 0, 127, 1, 100)),); 
+  pThickVal.html(round(map(controller.inputs[0][34].v, 0, 127, 0.5, 5))); 
+  //pRimVal.html(rimSlider.value()); 
+  pEffectVal.html(round(map(controller.inputs[0][29].v, 0, 127, 1, 360))); 
   pTreshVal.html(threshSlider.value()); 
   //pLevel.html(ceil((level * 1000))+10);
   pLevel.html(ceil(map(level, 0, 1, 0, 99)));
