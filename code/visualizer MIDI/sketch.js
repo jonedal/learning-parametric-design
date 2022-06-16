@@ -28,11 +28,10 @@ function onMIDIInit(midi) {
 	}
 
 	if (!haveAtLeastOneDevice){
-		alert("No MIDI input devices present.  You're gonna have a bad time.");
-	}else{
-		initD3();
+		alert("No MIDI input devices present.  This is going to be boring.");
 	}
 }
+initD3();
 
 function initD3(){
 	//load the json of the connected controller
@@ -50,7 +49,7 @@ function initD3(){
 }
 
 function onMIDIReject(err) {
-	alert("The MIDI system failed to start.  You're gonna have a bad time.");
+	alert("The MIDI system failed to start.  This is going to be boring.");
 }
 
 function MIDIMessageEventHandler(event) {
@@ -223,55 +222,57 @@ function setup() {
   let pMult = createP('RIBBON');
     pMult.style('font-size', '10px');
     pMult.position(sketchWidth / 2 - 175, sketchHeight);  
+    pMult.hide();
   
-  let pDetail = createP('DETAIL');
-    pDetail.style('font-size', '10px');
-    pDetail.position(sketchWidth / 2 - 175, sketchHeight + 40);  
+  let pDetail = createP('DTL');
+    pDetail.style('font-size', '12px');
+    pDetail.position(sketchWidth / 2 - 450, sketchHeight);  
 
-  let pDensity = createP('DENSITY');
-    pDensity.style('font-size', '10px');
-    pDensity.position(sketchWidth / 2 - 175, sketchHeight + 80);  
+  let pDensity = createP('DSY');
+    pDensity.style('font-size', '12px');
+    pDensity.position(sketchWidth / 2 - 600, sketchHeight);  
 
-  let pThick = createP('THICKNESS');
-    pThick.style('font-size', '10px');
-    pThick.position(sketchWidth / 2 - 175, sketchHeight + 120);  
+  let pThick = createP('STR');
+    pThick.style('font-size', '12px');
+    pThick.position(sketchWidth / 2 - 150, sketchHeight);  
   
   let pRim = createP('OUTER RIM');
     pRim.style('font-size', '10px');
     pRim.position(sketchWidth / 2 - 175, sketchHeight + 160);  
+    pRim.hide();
   
-  let pEffect = createP('WINDING');
-    pEffect.style('font-size', '10px');
-    pEffect.position(sketchWidth / 2 - 175, sketchHeight + 200);  
+  let pEffect = createP('WDG');
+    pEffect.style('font-size', '12px');
+    pEffect.position(sketchWidth / 2 - 300, sketchHeight);  
   
   let pThresh = createP('= THR');
     pThresh.style('font-size', '8px');
     pThresh.position(sketchWidth / 2 - 272, sketchHeight + 62);  
 
   
-  pMultVal = createP(multSlider.value());
-    pMultVal.style('font-size', '12px');
-    pMultVal.position(sketchWidth / 2 + 150, sketchHeight);  
- 
+  // pMultVal = createP(multSlider.value());
+  //   pMultVal.style('font-size', '12px');
+  //   pMultVal.position(sketchWidth / 2 + 150, sketchHeight);  
+
   pDetailVal = createP(detailSlider.value());
     pDetailVal.style('font-size', '12px');
-    pDetailVal.position(sketchWidth / 2 + 150, sketchHeight + 38);  
+    pDetailVal.position(sketchWidth / 2 - 400, sketchHeight);  
  
   pDensityVal = createP(densitySlider.value());
     pDensityVal.style('font-size', '12px');
-    pDensityVal.position(sketchWidth / 2 + 150, sketchHeight + 78);  
+    pDensityVal.position(sketchWidth / 2 - 550, sketchHeight);  
  
   pThickVal = createP(thickSlider.value());
     pThickVal.style('font-size', '12px');
-    pThickVal.position(sketchWidth / 2 + 150, sketchHeight + 118);  
+    pThickVal.position(sketchWidth / 2 - 100, sketchHeight);  
   
-  pRimVal = createP(rimSlider.value());
-    pRimVal.style('font-size', '12px');
-    pRimVal.position(sketchWidth / 2 + 150, sketchHeight + 158);  
+  // pRimVal = createP(rimSlider.value());
+  //   pRimVal.style('font-size', '12px');
+  //   pRimVal.position(sketchWidth / 2 + 150, sketchHeight + 158);  
   
   pEffectVal = createP(rimSlider.value());
     pEffectVal.style('font-size', '12px');
-    pEffectVal.position(sketchWidth / 2 + 150, sketchHeight + 198);  
+    pEffectVal.position(sketchWidth / 2 - 250, sketchHeight);  
   
   pTreshVal = createP(threshSlider.value());
     pTreshVal.style('font-size', '9px');
@@ -369,11 +370,11 @@ function draw() {
 
 
 
-  let mult = multSlider.value();
+  let mult = 470 //multSlider.value();
   let detail = map(controller.inputs[0][28].v, 0, 127, 10, 2000);
   let density = map(controller.inputs[0][27].v, 0, 127, 0.1, 5);
   let thickness = map(controller.inputs[0][34].v, 0, 127, 0.5, 5);
-  let outerRim = rimSlider.value();
+  let outerRim = 130 //rimSlider.value();
   let effect = map(controller.inputs[0][29].v, 0, 127, 1, 360);
   let thresh = threshSlider.value();
   let alpha = controller.inputs[0][34].v / 127 * 0.9 + 0.1;
@@ -464,27 +465,16 @@ function draw() {
    endShape();
 
 
-
-
-    
-  //slidervalues  
-  //pMultVal.html(multSlider.value()); 
+  //slidervalues   
   pDetailVal.html(round(map(controller.inputs[0][28].v, 0, 127, 1, 100))); 
   pDensityVal.html(round(map(controller.inputs[0][27].v, 0, 127, 1, 100)),); 
   pThickVal.html(round(map(controller.inputs[0][34].v, 0, 127, 0.5, 5))); 
-  //pRimVal.html(rimSlider.value()); 
   pEffectVal.html(round(map(controller.inputs[0][29].v, 0, 127, 1, 360))); 
   pTreshVal.html(threshSlider.value()); 
   //pLevel.html(ceil((level * 1000))+10);
   pLevel.html(ceil(map(level, 0, 1, 0, 99)));
   }
 }
-
-  
-  //  let log = spectrum;
-  //  fill()
-  //  textSize(10);
-  //  text(log, sketchWidth/sketchWidth, sketchHeight-(sketchHeight-10))
    
   
 
