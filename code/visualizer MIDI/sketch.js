@@ -76,8 +76,6 @@ function MIDIMessageEventHandler(event) {
       vistype = 'rects';
     } else if (controller.inputs[0][17].v === 127) {
       location.reload();
-    } else if (controller.inputs[0][16].v === 127) {
-      flipVisuals();
 	}
 }
 
@@ -87,7 +85,7 @@ function flipVisuals() {
 }
 
 
-const sketchWidth = 1420;
+const sketchWidth = 1439;
 const sketchHeight = 780;
 let audio;
 
@@ -146,6 +144,8 @@ let area;
 let peakDetect;
 
 let noiseSpeed = 0.008;
+
+let angleOffset = 0;
 
 
 
@@ -248,6 +248,7 @@ function setup() {
   let pThresh = createP('= THR');
     pThresh.style('font-size', '8px');
     pThresh.position(sketchWidth / 2 - 272, sketchHeight + 62);  
+    pThresh.hide();
 
   
   // pMultVal = createP(multSlider.value());
@@ -277,6 +278,7 @@ function setup() {
   pTreshVal = createP(threshSlider.value());
     pTreshVal.style('font-size', '9px');
     pTreshVal.position(sketchWidth / 2 - 318, sketchHeight + 59);  
+    pTreshVal.hide();
 
   pLevel = createP();
     pLevel.style('font-size', '11px');
@@ -379,7 +381,7 @@ function draw() {
   let thresh = threshSlider.value();
   let alpha = controller.inputs[0][34].v / 127 * 0.9 + 0.1;
   let corners = map(controller.inputs[0][32].v, 0, 127, 0, 50);
-  area = map(controller.inputs[0][35].v, 0, 127, 0.5, 3);
+  area = map(controller.inputs[0][35].v, 0, 127, 0.5, 5);
 
 
   colorMode(RGB);
@@ -398,16 +400,33 @@ function draw() {
   //   stroke('rgba(178, 166, 255, 0.3)');
   // }
   
+  // translate(sketchWidth / 2, sketchHeight / 2);
+  // for (let n = 0; n < 360; n += 1) {
+  //   if (n === 360) {n - 360};
+  //   let rotation = n + map(controller.inputs[0][18].v, 0, 127, 270, 630);
+  //   angleMode(DEGREES);
+  //   rotate(rotation);
+  // }
   
   translate(sketchWidth / 2, sketchHeight / 2);
-  rotate(Math.PI / 180 * flip);
+  let rotation = map(controller.inputs[0][18].v, 0, 127, 270, 630);
+  
+  if (controller.inputs[0][16].v === 127) {
+    rotation *= -1;
+  }
+  
+  angleMode(DEGREES);
+  
+  rotate(rotation);
+
+  angleMode(RADIANS);
    //top half
    beginShape();
    for(let angle = 0; angle < 360; angle += density) {
     
     const radius = area * spectrum[Math.round(angle / 500 * detail)];
     //const iradius = random(sketchWidth / 2 - (rimSize-rimFlutter),sketchHeight / 2 - rimSize);
-    const iradius = area * spectrum[Math.round(angle/mult*detail+ribbon)]
+    const iradius = area * spectrum[Math.round(angle / mult * detail + ribbon)]
 
        const x = radius * cos(Math.PI / -effect * angle);
        const y = radius * sin(Math.PI / -effect * angle);
@@ -439,7 +458,7 @@ function draw() {
     
     const radius = area * spectrum[Math.round(angle / 500 * detail)];
     //const iradius = random(sketchWidth / 2 - (rimSize-rimFlutter),sketchHeight / 2 - rimSize);
-    const iradius = area * spectrum[Math.round(angle/mult*detail+ribbon)]
+    const iradius = area * spectrum[Math.round(angle / mult * detail + ribbon)]
 
        const x = radius * cos(Math.PI / -effect * -angle);
        const y = radius * sin(Math.PI / -effect * -angle);
