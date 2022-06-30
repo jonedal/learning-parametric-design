@@ -47,13 +47,13 @@ threshSlider = createSlider(0.1, 1, 0.6, 0.1);
   threshSlider.hide();
 
 
-let pTag = createP('jjung_vision_2.1 ___ (MIDI - CTRL) ___');
+let pTag = createP('jjung_vision // brandenburger str. 68');
   pTag.style('font-size', '10px');
-  pTag.position(sketchWidth - 440, sketchHeight + pyOffset);
+  pTag.position(sketchWidth - 400, sketchHeight + pyOffset);
 
-let pData = createP('© Jonathan Dahle - FHP (20341)');
+let pData = createP('@jonathan___jung');
   pData.style('font-size', '10px');
-  pData.position(sketchWidth - 220, sketchHeight + pyOffset);
+  pData.position(sketchWidth - 150, sketchHeight + pyOffset);
 
 let pMult = createP('RIBBON');
   pMult.style('font-size', '10px');

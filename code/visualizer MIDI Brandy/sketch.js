@@ -29,6 +29,7 @@ function onMIDIInit(midi) {
 
 	if (!haveAtLeastOneDevice){
 		alert("No MIDI input devices present.  This is going to be boring.");
+    
 	}
 }
 initD3();
@@ -84,7 +85,7 @@ function flipVisuals() {
 }
 
 const sketchWidth = 1439;
-const sketchHeight = 780;
+const sketchHeight = 860;
 let audio;
 
 //settings
