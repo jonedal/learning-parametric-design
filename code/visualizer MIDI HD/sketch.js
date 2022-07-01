@@ -84,7 +84,7 @@ function flipVisuals() {
 }
 
 const sketchWidth = 1920;
-const sketchHeight = 1070;
+const sketchHeight = 1035;
 let audio;
 
 //settings
