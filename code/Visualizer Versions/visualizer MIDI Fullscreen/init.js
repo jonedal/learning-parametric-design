@@ -1,7 +1,7 @@
 function initGui() {
 
-  let pyOffset = 7;
-  let pxOffset = 300;
+  let pyOffset = 3;
+  let pxOffset = 70
 
   multSlider = createSlider(400, 500, 470, 10);
   multSlider.position(sketchWidth / 2 - 100, sketchHeight + 13);
@@ -62,15 +62,15 @@ let pMult = createP('RIBBON');
 
 let pDetail = createP('DTL');
   pDetail.style('font-size', '12px');
-  pDetail.position(sketchWidth / 2 - 450 - pxOffset, sketchHeight + 4);  
+  pDetail.position(sketchWidth / 2 - 450 - pxOffset, sketchHeight + 1);  
 
 let pDensity = createP('DSY');
   pDensity.style('font-size', '12px');
-  pDensity.position(sketchWidth / 2 - 600 - pxOffset, sketchHeight + 4);  
+  pDensity.position(sketchWidth / 2 - 600 - pxOffset, sketchHeight + 1);  
 
 let pThick = createP('STR');
   pThick.style('font-size', '12px');
-  pThick.position(sketchWidth / 2 - 150 - pxOffset, sketchHeight + 4);  
+  pThick.position(sketchWidth / 2 - 150 - pxOffset, sketchHeight + 1);  
 
 let pRim = createP('OUTER RIM');
   pRim.style('font-size', '10px');
@@ -79,7 +79,7 @@ let pRim = createP('OUTER RIM');
 
 let pEffect = createP('WDG');
   pEffect.style('font-size', '12px');
-  pEffect.position(sketchWidth / 2 - 300 - pxOffset, sketchHeight + 4);  
+  pEffect.position(sketchWidth / 2 - 300 - pxOffset, sketchHeight + 1);  
 
 let pThresh = createP('= THR');
   pThresh.style('font-size', '8px');
@@ -89,20 +89,20 @@ let pThresh = createP('= THR');
 
 pDetailVal = createP(detailSlider.value());
   pDetailVal.style('font-size', '12px');
-  pDetailVal.position(sketchWidth / 2 - 400 - pxOffset, sketchHeight + 4);  
+  pDetailVal.position(sketchWidth / 2 - 400 - pxOffset, sketchHeight + 1);  
 
 pDensityVal = createP(densitySlider.value());
   pDensityVal.style('font-size', '12px');
-  pDensityVal.position(sketchWidth / 2 - 550 - pxOffset, sketchHeight + 4);  
+  pDensityVal.position(sketchWidth / 2 - 550 - pxOffset, sketchHeight + 1);  
 
 pThickVal = createP(thickSlider.value());
   pThickVal.style('font-size', '12px');
-  pThickVal.position(sketchWidth / 2 - 100 - pxOffset, sketchHeight + 4);  
+  pThickVal.position(sketchWidth / 2 - 100 - pxOffset, sketchHeight + 1);  
 
 
 pEffectVal = createP(rimSlider.value());
   pEffectVal.style('font-size', '12px');
-  pEffectVal.position(sketchWidth / 2 - 250 - pxOffset, sketchHeight + 4);  
+  pEffectVal.position(sketchWidth / 2 - 250 - pxOffset, sketchHeight + 1);  
 
 pTreshVal = createP(threshSlider.value());
   pTreshVal.style('font-size', '9px');
@@ -115,5 +115,3 @@ pLevel = createP();
 
   }
   
-
-   
